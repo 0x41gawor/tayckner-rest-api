@@ -9,7 +9,6 @@ My stage of planning follows [this article](https://www.juniorjavadeveloper.pl/2
 - [ ] [Description in text](text_description.md)
 - [ ] [CRC cards](crc_cards.md)
 - [ ] [ER diagram](er_diagram.md)
-- [ ] [GUI mock-ups](gui_mock-ups.md)
 - [ ] [Application Architecture](application_architecture.md)
 - [ ] [UML class diagram](uml_class_diagram.md)
 - [ ] [Endpoints](endpoints.md)
