@@ -6,7 +6,7 @@
 
 ## Day-Tracker
 
-|        Class:         |     *Activity*     |
+|         Class         |     *Activity*     |
 | :-------------------: | :----------------: |
 | **Responsibilities:** | **Collaborators:** |
 |    Knows its Name     |                    |
@@ -22,7 +22,7 @@
 |    Knows its Name     |                    |
 | Knows its Description |                    |
 |    Knows its Color    |       Color        |
-|    Knows its User     |                    |
+|    Knows its User     |        User        |
 
 ## Day-Planner
 
