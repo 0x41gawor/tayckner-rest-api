@@ -30,7 +30,7 @@ public class CategoryEntity {
     @Column(name = "color", nullable = false)
     private String color;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
 // -------------------------------------------------------------------------------------- C O N S T R U C T O R S
