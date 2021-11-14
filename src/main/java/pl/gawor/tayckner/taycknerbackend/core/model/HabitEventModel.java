@@ -7,7 +7,7 @@ import java.time.LocalDate;
  *
  * A simple POJO.
  */
-public class HabitEvent {
+public class HabitEventModel {
 
 // -------------------------------------------------------------------------------------- F I E L D S
 
@@ -19,7 +19,7 @@ public class HabitEvent {
 
 // -------------------------------------------------------------------------------------- C O N S T R U C T O R S
 
-    public HabitEvent(long id, HabitModel habit, LocalDate date, String comment, int value) {
+    public HabitEventModel(long id, HabitModel habit, LocalDate date, String comment, int value) {
         this.id = id;
         this.habit = habit;
         this.date = date;
