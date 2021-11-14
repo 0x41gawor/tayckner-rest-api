@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
  * A simple POJO.
  */
 public class ScheduleModel {
+
 // -------------------------------------------------------------------------------------- F I E L D S
 
     private long id;
