@@ -1,4 +1,4 @@
-package pl.gawor.tayckner.taycknerbackend.service.mapper;
+package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ActivityEntity;
