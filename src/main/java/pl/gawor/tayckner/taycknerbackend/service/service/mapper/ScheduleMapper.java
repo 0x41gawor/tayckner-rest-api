@@ -1,5 +1,6 @@
 package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ScheduleEntity;
 
@@ -7,6 +8,7 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.ScheduleEntity;
  * Mapper used to map between Schedule Model and Entity classes.
  *
  */
+@Component
 public class ScheduleMapper implements Mapper<ScheduleModel, ScheduleEntity> {
     @Override
     public ScheduleEntity mapToEntity(ScheduleModel model) {

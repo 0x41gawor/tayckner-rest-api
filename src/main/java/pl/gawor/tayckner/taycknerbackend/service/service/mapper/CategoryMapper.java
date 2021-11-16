@@ -1,5 +1,6 @@
 package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.CategoryEntity;
 
@@ -7,6 +8,7 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.CategoryEntity;
  * Mapper used to map between Category Model and Entity classes.
  *
  */
+@Component
 public class CategoryMapper implements Mapper<CategoryModel, CategoryEntity> {
 
     @Override

@@ -1,5 +1,6 @@
 package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ActivityEntity;
 
@@ -7,6 +8,7 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.ActivityEntity;
  * Mapper used to map between Activity Model and Entity classes.
  *
  */
+@Component
 public class ActivityMapper implements Mapper<ActivityModel, ActivityEntity> {
     @Override
     public ActivityEntity mapToEntity(ActivityModel model) {
