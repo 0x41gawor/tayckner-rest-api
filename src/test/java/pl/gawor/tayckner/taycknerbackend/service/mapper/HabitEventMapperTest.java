@@ -11,17 +11,17 @@ import java.util.Objects;
 
 class HabitEventMapperTest {
 
-    public static final long ID = 1L;
-    public static final String NAME = "name";
-    public static final String COMMENT = "comment";
-    public static final String COLOR = "color";
-    public static final String TEST_USERNAME = "test_username";
-    public static final String TEST_PASSWORD = "test_password";
-    public static final String TEST_FIRST_NAME = "test_firstName";
-    public static final String TEST_LAST_NAME = "test_lastName";
-    public static final String TEST_MAIL_COM = "test@mail.com";
-    public static final LocalDate DATE = LocalDate.of(2020, 1, 9);
-    public static final int VALUE = 4;
+    private static final long ID = 1L;
+    private static final String NAME = "name";
+    private static final String COMMENT = "comment";
+    private static final String COLOR = "color";
+    private static final String TEST_USERNAME = "test_username";
+    private static final String TEST_PASSWORD = "test_password";
+    private static final String TEST_FIRST_NAME = "test_firstName";
+    private static final String TEST_LAST_NAME = "test_lastName";
+    private static final String TEST_MAIL_COM = "test@mail.com";
+    private static final LocalDate DATE = LocalDate.of(2020, 1, 9);
+    private static final int VALUE = 4;
 
     private final HabitEventMapper mapper = new HabitEventMapper();
 

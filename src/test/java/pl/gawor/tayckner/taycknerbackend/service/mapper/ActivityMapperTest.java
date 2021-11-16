@@ -14,19 +14,19 @@ import java.util.Objects;
 
 class ActivityMapperTest {
 
-    public static final long ID = 1L;
-    public static final String NAME = "name";
-    public static final String DESCRIPTION = "description";
-    public static final String COLOR = "color";
-    public static final String TEST_USERNAME = "test_username";
-    public static final String TEST_PASSWORD = "test_password";
-    public static final String TEST_FIRST_NAME = "test_firstName";
-    public static final String TEST_LAST_NAME = "test_lastName";
-    public static final String TEST_MAIL_COM = "test@mail.com";
-    public static final LocalDateTime START_TIME = LocalDateTime.of(2021, Month.APRIL, 22, 12, 12, 30);
-    public static final LocalDateTime END_TIME = LocalDateTime.of(2021, Month.APRIL, 22, 14, 12, 30);
-    public static final int DURATION = 4;
-    public static final int BREAKS = 10;
+    private static final long ID = 1L;
+    private static final String NAME = "name";
+    private static final String DESCRIPTION = "description";
+    private static final String COLOR = "color";
+    private static final String TEST_USERNAME = "test_username";
+    private static final String TEST_PASSWORD = "test_password";
+    private static final String TEST_FIRST_NAME = "test_firstName";
+    private static final String TEST_LAST_NAME = "test_lastName";
+    private static final String TEST_MAIL_COM = "test@mail.com";
+    private static final LocalDateTime START_TIME = LocalDateTime.of(2021, Month.APRIL, 22, 12, 12, 30);
+    private static final LocalDateTime END_TIME = LocalDateTime.of(2021, Month.APRIL, 22, 14, 12, 30);
+    private static final int DURATION = 4;
+    private static final int BREAKS = 10;
 
     private final ActivityMapper mapper = new ActivityMapper();
 

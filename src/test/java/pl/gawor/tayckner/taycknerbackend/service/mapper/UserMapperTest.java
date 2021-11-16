@@ -8,12 +8,12 @@ import java.util.Objects;
 
 class UserMapperTest {
 
-    public static final long ID = 1L;
-    public static final String TEST_USERNAME = "test_username";
-    public static final String TEST_PASSWORD = "test_password";
-    public static final String TEST_FIRST_NAME = "test_firstName";
-    public static final String TEST_LAST_NAME = "test_lastName";
-    public static final String TEST_MAIL_COM = "test@mail.com";
+    private static final long ID = 1L;
+    private static final String TEST_USERNAME = "test_username";
+    private static final String TEST_PASSWORD = "test_password";
+    private static final String TEST_FIRST_NAME = "test_firstName";
+    private static final String TEST_LAST_NAME = "test_lastName";
+    private static final String TEST_MAIL_COM = "test@mail.com";
 
     private final UserMapper mapper = new UserMapper();
 
