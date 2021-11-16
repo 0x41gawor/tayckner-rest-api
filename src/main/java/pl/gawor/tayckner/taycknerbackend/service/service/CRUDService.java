@@ -9,9 +9,9 @@ import java.util.List;
  *</p>
  */
 public interface CRUDService<Model> {
-    public List<Model> list();
-    public Model create(Model model);
-    public Model read(int id);
-    public Model update(int id, Model model);
-    public boolean delete(int id);
+    List<Model> list();
+    Model create(Model model);
+    Model read(int id);
+    Model update(int id, Model model);
+    boolean delete(int id);
 }
