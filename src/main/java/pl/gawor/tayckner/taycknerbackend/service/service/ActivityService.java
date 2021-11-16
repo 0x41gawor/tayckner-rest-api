@@ -26,7 +26,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<ActivityModel> list() {
         List<ActivityEntity> entities = repository.findAll();
@@ -36,27 +36,27 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public ActivityModel create(ActivityModel model) {
         model.setId(0);
         ActivityEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- R E A D
     @Override
     public ActivityModel read(long id) {
         Optional<ActivityEntity> optional = repository.findById(id);
         ActivityEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
-
+    // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public ActivityModel update(long id, ActivityModel model) {
         ActivityEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
         if (repository.existsById(id)) {
@@ -65,7 +65,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return false;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T   B Y   C A T E G O R Y
     /**
      * List by category.
      * <p>

@@ -27,7 +27,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<HabitEventModel> list() {
         List<HabitEventEntity> entities = repository.findAll();
@@ -37,27 +37,27 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public HabitEventModel create(HabitEventModel model) {
         model.setId(0);
         HabitEventEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- R E A D
     @Override
     public HabitEventModel read(long id) {
         Optional<HabitEventEntity> optional = repository.findById(id);
         HabitEventEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
-
+    // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public HabitEventModel update(long id, HabitEventModel model) {
         HabitEventEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
         if (repository.existsById(id)) {
@@ -66,7 +66,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return false;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T   B Y   H A B I T
     /**
      * List by habit.
      * <p>

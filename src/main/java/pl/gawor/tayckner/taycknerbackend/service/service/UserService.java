@@ -25,7 +25,7 @@ public class UserService implements CRUDService<UserModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<UserModel> list() {
         List<UserEntity> entities = repository.findAll();
@@ -35,27 +35,27 @@ public class UserService implements CRUDService<UserModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public UserModel create(UserModel model) {
         model.setId(0);
         UserEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- R E A D
     @Override
     public UserModel read(long id) {
         Optional<UserEntity> optional = repository.findById(id);
         UserEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
-
+    // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public UserModel update(long id, UserModel model) {
         UserEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
         if (repository.existsById(id)) {

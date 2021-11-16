@@ -27,7 +27,7 @@ public class HabitService implements CRUDService<HabitModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<HabitModel> list() {
         List<HabitEntity> entities = repository.findAll();
@@ -37,27 +37,27 @@ public class HabitService implements CRUDService<HabitModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public HabitModel create(HabitModel model) {
         model.setId(0);
         HabitEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- R E A D
     @Override
     public HabitModel read(long id) {
         Optional<HabitEntity> optional = repository.findById(id);
         HabitEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
-
+    // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public HabitModel update(long id, HabitModel model) {
         HabitEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
         if (repository.existsById(id)) {
@@ -66,7 +66,7 @@ public class HabitService implements CRUDService<HabitModel> {
         }
         return false;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
     /**
      * List by user.
      * <p>

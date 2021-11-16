@@ -27,7 +27,7 @@ public class CategoryService implements CRUDService<CategoryModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<CategoryModel> list() {
         List<CategoryEntity> entities = repository.findAll();
@@ -37,27 +37,27 @@ public class CategoryService implements CRUDService<CategoryModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public CategoryModel create(CategoryModel model) {
         model.setId(0);
         CategoryEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- R E A D
     @Override
     public CategoryModel read(long id) {
         Optional<CategoryEntity> optional = repository.findById(id);
         CategoryEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
-
+    // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public CategoryModel update(long id, CategoryModel model) {
         CategoryEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
         if (repository.existsById(id)) {
@@ -66,7 +66,7 @@ public class CategoryService implements CRUDService<CategoryModel> {
         }
         return false;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
     /**
      * List by user.
      * <p>

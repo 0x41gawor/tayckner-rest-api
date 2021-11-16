@@ -27,7 +27,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<ScheduleModel> list() {
         List<ScheduleEntity> entities = repository.findAll();
@@ -37,27 +37,27 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public ScheduleModel create(ScheduleModel model) {
         model.setId(0);
         ScheduleEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- R E A D
     @Override
     public ScheduleModel read(long id) {
         Optional<ScheduleEntity> optional = repository.findById(id);
         ScheduleEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
-
+    // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public ScheduleModel update(long id, ScheduleModel model) {
         ScheduleEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
-
+    // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
         if (repository.existsById(id)) {
@@ -66,7 +66,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         }
         return false;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
     /**
      * List by user.
      * <p>
