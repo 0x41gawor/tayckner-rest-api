@@ -3,9 +3,11 @@ package pl.gawor.tayckner.taycknerbackend.service.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.ScheduleRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ScheduleEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.ScheduleMapper;
+import pl.gawor.tayckner.taycknerbackend.service.service.mapper.UserMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +65,23 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
             return true;
         }
         return false;
+    }
+
+    /**
+     * List by user.
+     * <p>
+     * Returns list of model which property User is equal to given in param.
+     * </p>
+     * @param user user model by which search is done
+     * @return List of all models in database, that has given user
+     */
+    public List<ScheduleModel> list(UserModel user) {
+        UserMapper userMapper = new UserMapper();
+        List<ScheduleEntity> entities = repository.findScheduleEntitiesByUser(userMapper.mapToEntity(user));
+        List<ScheduleModel> models = new ArrayList<>();
+        for (ScheduleEntity entity : entities) {
+            models.add(mapper.mapToModel(entity));
+        }
+        return models;
     }
 }

@@ -3,9 +3,11 @@ package pl.gawor.tayckner.taycknerbackend.service.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.repository.ActivityRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ActivityEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.ActivityMapper;
+import pl.gawor.tayckner.taycknerbackend.service.service.mapper.CategoryMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,5 +64,23 @@ public class ActivityService implements CRUDService<ActivityModel> {
             return true;
         }
         return false;
+    }
+
+    /**
+     * List by category.
+     * <p>
+     * Returns list of model which property Category is equal to given in param.
+     * </p>
+     * @param category category model by which search is done
+     * @return List of all models in database, that has given user
+     */
+    public List<ActivityModel> list(CategoryModel category) {
+        CategoryMapper categoryMapper = new CategoryMapper();
+        List<ActivityEntity> entities = repository.findActivityEntitiesByCategory(categoryMapper.mapToEntity(category));
+        List<ActivityModel> models = new ArrayList<>();
+        for (ActivityEntity entity : entities) {
+            models.add(mapper.mapToModel(entity));
+        }
+        return models;
     }
 }

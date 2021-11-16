@@ -3,9 +3,11 @@ package pl.gawor.tayckner.taycknerbackend.service.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.HabitRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.HabitMapper;
+import pl.gawor.tayckner.taycknerbackend.service.service.mapper.UserMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +65,23 @@ public class HabitService implements CRUDService<HabitModel> {
             return true;
         }
         return false;
+    }
+
+    /**
+     * List by user.
+     * <p>
+     * Returns list of model which property User is equal to given in param.
+     * </p>
+     * @param user user model by which search is done
+     * @return List of all models in database, that has given user
+     */
+    public List<HabitModel> list(UserModel user) {
+        UserMapper userMapper = new UserMapper();
+        List<HabitEntity> entities = repository.findHabitEntitiesByUser(userMapper.mapToEntity(user));
+        List<HabitModel> models = new ArrayList<>();
+        for (HabitEntity entity : entities) {
+            models.add(mapper.mapToModel(entity));
+        }
+        return models;
     }
 }
