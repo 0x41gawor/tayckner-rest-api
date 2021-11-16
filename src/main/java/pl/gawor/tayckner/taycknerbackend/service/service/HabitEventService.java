@@ -27,6 +27,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
+
     // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<HabitEventModel> list() {
@@ -37,6 +38,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return models;
     }
+
     // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public HabitEventModel create(HabitEventModel model) {
@@ -44,6 +46,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         HabitEventEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
+
     // -------------------------------------------------------------------------------------- R E A D
     @Override
     public HabitEventModel read(long id) {
@@ -51,12 +54,14 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         HabitEventEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
+
     // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public HabitEventModel update(long id, HabitEventModel model) {
         HabitEventEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
+
     // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
@@ -67,11 +72,13 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         return false;
     }
     // -------------------------------------------------------------------------------------- L I S T   B Y   H A B I T
+
     /**
      * List by habit.
      * <p>
      * Returns list of model which property Habit is equal to given in param.
      * </p>
+     *
      * @param habit habit model by which search is done
      * @return List of all models in database, that has given user
      */

@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 @Service
 public class ActivityService implements CRUDService<ActivityModel> {
+
     private final ActivityRepository repository;
     private final ActivityMapper mapper;
 
@@ -26,6 +27,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
+
     // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<ActivityModel> list() {
@@ -36,6 +38,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return models;
     }
+
     // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public ActivityModel create(ActivityModel model) {
@@ -43,6 +46,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         ActivityEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
+
     // -------------------------------------------------------------------------------------- R E A D
     @Override
     public ActivityModel read(long id) {
@@ -50,12 +54,14 @@ public class ActivityService implements CRUDService<ActivityModel> {
         ActivityEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
+
     // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public ActivityModel update(long id, ActivityModel model) {
         ActivityEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
+
     // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
@@ -66,11 +72,13 @@ public class ActivityService implements CRUDService<ActivityModel> {
         return false;
     }
     // -------------------------------------------------------------------------------------- L I S T   B Y   C A T E G O R Y
+
     /**
      * List by category.
      * <p>
      * Returns list of model which property Category is equal to given in param.
      * </p>
+     *
      * @param category category model by which search is done
      * @return List of all models in database, that has given user
      */

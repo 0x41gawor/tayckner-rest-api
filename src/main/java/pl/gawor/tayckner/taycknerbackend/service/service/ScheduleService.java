@@ -27,6 +27,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         this.repository = repository;
         this.mapper = mapper;
     }
+
     // -------------------------------------------------------------------------------------- L I S T
     @Override
     public List<ScheduleModel> list() {
@@ -37,6 +38,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         }
         return models;
     }
+
     // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public ScheduleModel create(ScheduleModel model) {
@@ -44,6 +46,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         ScheduleEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
+
     // -------------------------------------------------------------------------------------- R E A D
     @Override
     public ScheduleModel read(long id) {
@@ -51,12 +54,14 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         ScheduleEntity entity = optional.orElse(null);
         return mapper.mapToModel(entity);
     }
+
     // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public ScheduleModel update(long id, ScheduleModel model) {
         ScheduleEntity entity = mapper.mapToEntity(model);
         return mapper.mapToModel(repository.save(entity));
     }
+
     // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
@@ -67,11 +72,13 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         return false;
     }
     // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
+
     /**
      * List by user.
      * <p>
      * Returns list of model which property User is equal to given in param.
      * </p>
+     *
      * @param user user model by which search is done
      * @return List of all models in database, that has given user
      */
