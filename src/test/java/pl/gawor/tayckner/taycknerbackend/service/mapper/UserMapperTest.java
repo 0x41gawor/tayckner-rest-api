@@ -7,6 +7,7 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 import java.util.Objects;
 
 class UserMapperTest {
+
     public static final long ID = 1L;
     public static final String TEST_USERNAME = "test_username";
     public static final String TEST_PASSWORD = "test_password";

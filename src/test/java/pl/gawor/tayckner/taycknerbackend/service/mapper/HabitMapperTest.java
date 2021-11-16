@@ -1,11 +1,8 @@
 package pl.gawor.tayckner.taycknerbackend.service.mapper;
 
-
 import org.junit.jupiter.api.Test;
-import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
-import pl.gawor.tayckner.taycknerbackend.repository.entity.CategoryEntity;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEntity;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 
@@ -68,4 +65,5 @@ class HabitMapperTest {
         assert Objects.equals(model.getUser().getLastName(), userModel.getLastName());
         assert Objects.equals(model.getUser().getEmail(), userModel.getEmail());
     }
+
 }

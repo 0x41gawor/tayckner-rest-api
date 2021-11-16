@@ -1,6 +1,5 @@
 package pl.gawor.tayckner.taycknerbackend.service.mapper;
 
-
 import org.junit.jupiter.api.Test;
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
@@ -68,7 +67,5 @@ class ActivityMapperTest {
         assert entity.getDuration() == model.getDuration();
         assert entity.getBreaks() == model.getBreaks();
     }
-
-
 
 }

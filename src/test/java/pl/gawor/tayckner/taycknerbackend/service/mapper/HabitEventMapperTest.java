@@ -20,7 +20,7 @@ class HabitEventMapperTest {
     public static final String TEST_FIRST_NAME = "test_firstName";
     public static final String TEST_LAST_NAME = "test_lastName";
     public static final String TEST_MAIL_COM = "test@mail.com";
-    public static final LocalDate DATE =  LocalDate.of(2020, 1, 9);
+    public static final LocalDate DATE = LocalDate.of(2020, 1, 9);
     public static final int VALUE = 4;
 
     private final HabitEventMapper mapper = new HabitEventMapper();
@@ -58,4 +58,5 @@ class HabitEventMapperTest {
         assert Objects.equals(model.getComment(), entity.getComment());
         assert model.getValue() == entity.getValue();
     }
+
 }

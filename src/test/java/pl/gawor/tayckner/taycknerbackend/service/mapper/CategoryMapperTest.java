@@ -67,4 +67,5 @@ class CategoryMapperTest {
         assert Objects.equals(entity.getUser().getLastName(), userModel.getLastName());
         assert Objects.equals(entity.getUser().getEmail(), userModel.getEmail());
     }
+
 }

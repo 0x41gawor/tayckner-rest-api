@@ -11,6 +11,7 @@ import java.time.Month;
 import java.util.Objects;
 
 class ScheduleMapperTest {
+
     public static final long ID = 1L;
     public static final String NAME = "name";
     public static final String TEST_USERNAME = "test_username";
@@ -69,4 +70,5 @@ class ScheduleMapperTest {
         assert Objects.equals(entity.getUser().getLastName(), userModel.getLastName());
         assert Objects.equals(entity.getUser().getEmail(), userModel.getEmail());
     }
+
 }
