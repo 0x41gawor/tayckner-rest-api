@@ -55,7 +55,7 @@ class CategoryMapperTest {
         CategoryEntity entity = mapper.mapToEntity(model);
 
         // then
-        assert entity.getId() == entity.getId();
+        assert model.getId() == entity.getId();
         assert Objects.equals(model.getName(), entity.getName());
         assert Objects.equals(model.getDescription(), entity.getDescription());
         assert Objects.equals(model.getColor(), entity.getColor());
