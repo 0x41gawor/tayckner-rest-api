@@ -1,5 +1,6 @@
-package pl.gawor.tayckner.taycknerbackend.service.mapper;
+package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEntity;
 
@@ -7,6 +8,7 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEntity;
  * Mapper used to map between Habit Model and Entity classes.
  *
  */
+@Component
 public class HabitMapper implements Mapper<HabitModel, HabitEntity> {
     @Override
     public HabitEntity mapToEntity(HabitModel model) {

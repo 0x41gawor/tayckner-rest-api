@@ -1,5 +1,6 @@
-package pl.gawor.tayckner.taycknerbackend.service.mapper;
+package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 
@@ -7,6 +8,7 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
  * Mapper used to map between User Model and Entity classes.
  *
  */
+@Component
 public class UserMapper implements Mapper<UserModel, UserEntity> {
 
     @Override

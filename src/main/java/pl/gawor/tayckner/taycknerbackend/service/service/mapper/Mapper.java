@@ -1,4 +1,4 @@
-package pl.gawor.tayckner.taycknerbackend.service.mapper;
+package pl.gawor.tayckner.taycknerbackend.service.service.mapper;
 
 /**
  * Interface that defines mappers behavior.
