@@ -9,10 +9,10 @@ import java.util.Map;
 /**
  * Class representing JSON that is being returned by controllers.
  * <p>
- *     It contains code, message and content.
- *     Code is the code number of ResponseStatus.
- *     Message is the message of ResponseStatus.
- *     Content is the requested content.
+ * It contains code, message and content.
+ * Code is the code number of ResponseStatus.
+ * Message is the message of ResponseStatus.
+ * Content is the requested content.
  * </p>
  */
 public class Response {

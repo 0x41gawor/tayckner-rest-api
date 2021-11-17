@@ -24,13 +24,14 @@ public class UserController {
     public String register(@RequestBody UserModel model) {
         return "register";
     }
+
     // -------------------------------------------------------------------------------------- L O G I N
     @PostMapping(
             value = "/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
     public String login(@RequestBody Map<String, String> credentials) {
-       return "login";
+        return "login";
     }
 
 }

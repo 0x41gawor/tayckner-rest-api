@@ -19,6 +19,7 @@ public class HabitEventController {
     public String list() {
         return "list";
     }
+
     // -------------------------------------------------------------------------------------- C R E A T E
     @PostMapping(
             value = "",
@@ -28,6 +29,7 @@ public class HabitEventController {
     public String create(@RequestBody HabitEventModel model) {
         return "create";
     }
+
     // -------------------------------------------------------------------------------------- R E A D
     @GetMapping(
             value = "/{id}",
@@ -36,15 +38,17 @@ public class HabitEventController {
     public String read(@PathVariable(name = "id") long id) {
         return "read";
     }
+
     // -------------------------------------------------------------------------------------- U P D A T E
     @PutMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String  update(@PathVariable(name = "id") long id, @RequestBody HabitEventModel model) {
+    public String update(@PathVariable(name = "id") long id, @RequestBody HabitEventModel model) {
         return "update";
     }
+
     // -------------------------------------------------------------------------------------- D E L E T E
     @DeleteMapping(
             value = "{id}",

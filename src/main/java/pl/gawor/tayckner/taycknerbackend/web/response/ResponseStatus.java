@@ -6,32 +6,32 @@ package pl.gawor.tayckner.taycknerbackend.web.response;
 public enum ResponseStatus {
 
     // register
-    R0("R0","OK, registered successfully!"),
-    R1("R1","Username already exists"),
-    R2("R2","Email already used"),
-    R3("R3","Invalid character in username"),
-    R4("R4","Password too short"),
-    R5("R5","Password does not contain any numbers"),
-    R6("R6","Password does not contain any uppercase letters"),
-    R7("R7","Password does not contain any lowercase letters"),
-    R8("R8","Password does not contain any special characters"),
-    R9("R9","Invalid character in password"),
-    R10("R10","Incorrect email address"),
+    R0("R0", "OK, registered successfully!"),
+    R1("R1", "Username already exists"),
+    R2("R2", "Email already used"),
+    R3("R3", "Invalid character in username"),
+    R4("R4", "Password too short"),
+    R5("R5", "Password does not contain any numbers"),
+    R6("R6", "Password does not contain any uppercase letters"),
+    R7("R7", "Password does not contain any lowercase letters"),
+    R8("R8", "Password does not contain any special characters"),
+    R9("R9", "Invalid character in password"),
+    R10("R10", "Incorrect email address"),
 
     //login
-    L0("L0","OK, logged in successfully"),
-    L1("L1","No such username"),
-    L2("L2","Wrong password"),
+    L0("L0", "OK, logged in successfully"),
+    L1("L1", "No such username"),
+    L2("L2", "Wrong password"),
 
     // model
-    M0("M0","OK"),
+    M0("M0", "OK"),
     // common - list
-    MCL1("MCL1","List is empty"),
+    MCL1("MCL1", "List is empty"),
     // common - common
-    MCC1("MCC1","Object with given id not found"),
+    MCC1("MCC1", "Object with given id not found"),
     // habit - create
-    MHC1("MHC1","User already has habit with the same name"),
-    MHC2("MHC2","Invalid color");
+    MHC1("MHC1", "User already has habit with the same name"),
+    MHC2("MHC2", "Invalid color");
 
     // the rest of codes will appear here during development
     // the ones above are sample
