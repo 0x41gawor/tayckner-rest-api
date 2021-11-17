@@ -137,7 +137,7 @@ It can be pair of one of these:
 
 | code |      message       |
 | :--: | :----------------: |
-|  0   |       <JWT>        |
+|  0   |      `<JWT>`       |
 |  L1  | "No such username" |
 |  L2  |  "Wrong password"  |
 
@@ -183,10 +183,10 @@ Response is a JSON with the following fields:
 
 It can be pair of one of these:
 
-| code |     content      |
-| :--: | :--------------: |
-|  0   | <List of Models> |
-| ML1  | "List is empty"  |
+| code |      content       |
+| :--: | :----------------: |
+|  0   | `<List of Models>` |
+| ML1  |  "List is empty"   |
 
 ##### Sample request
 
@@ -243,7 +243,7 @@ It can be pair of one of these:
 
 | code |                   content                   |
 | :--: | :-----------------------------------------: |
-|  0   |               <Created Model>               |
+|  0   |              `<Created Model>`              |
 | MCH1 | "User already has habit with the same name" |
 | MCH2 |               "Invalid color"               |
 | MCA1 |               "Invalid date"                |
@@ -299,7 +299,7 @@ It can be pair of one of these:
 
 | code |             content              |
 | :--: | :------------------------------: |
-|  0   |           <Read Model>           |
+|  0   |          `<Read Model>`          |
 | MR1  | "Object with given id not found" |
 
 ##### Sample request
@@ -346,7 +346,7 @@ It can be pair of one of these:
 
 | code |                   content                   |
 | :--: | :-----------------------------------------: |
-|  0   |               <Updated Model>               |
+|  0   |              `<Updated Model>`              |
 | MR1  |      "Object with given id not found"       |
 | MC1  | "User already has model with the same name" |
 | MC2  |               "Invalid color"               |
@@ -419,5 +419,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
     "content": "Object with id 12 deleted"
 }
 ```
-
-### 
