@@ -5,6 +5,7 @@ import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.service.UserService;
 import pl.gawor.tayckner.taycknerbackend.web.response.Response;
 import pl.gawor.tayckner.taycknerbackend.web.response.ResponseStatus;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Facade class for `User` endpoints.
@@ -46,6 +47,8 @@ public class UserFacade {
                     .setResponseStatus(responseStatus)
                     .build();
         }
+        String hashedPassword = BCrypt.hashpw(model.getPassword(), BCrypt.gensalt(10));
+        model.setPassword(hashedPassword);
 
         service.create(model);
 
