@@ -34,7 +34,7 @@ public class CategoryFacade {
         List<CategoryModel> models = service.list(user);
 
         if (models.isEmpty()) {
-            responseStatus = ResponseStatus.MCL1;
+            responseStatus = ResponseStatus.MAL1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -78,6 +78,30 @@ public class CategoryFacade {
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
+                .build();
+    }
+    // ------------------------------------------------------------------------------------------- R E A D
+    public Response read(long id, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+
+        try {
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            builder
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        CategoryModel readModel = service.read(id);
+
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(readModel)
                 .build();
     }
 }

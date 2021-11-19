@@ -25,8 +25,10 @@ public enum ResponseStatus {
 
     // model
     M0("M0", "OK"),
-    // common - list
-    MCL1("MCL1", "List is empty"),
+    // all - list
+    MAL1("MCL1", "List is empty"),
+    // all - read
+    MAR1("MAR1", "Object with given id not found for user"),
     // all - common
     MAC1("MCC1", "Object with given id not found"),
     MAC2("MHC2", "Invalid color"),
