@@ -8,6 +8,8 @@ import pl.gawor.tayckner.taycknerbackend.service.service.UserService;
 import pl.gawor.tayckner.taycknerbackend.web.response.Response;
 import pl.gawor.tayckner.taycknerbackend.web.response.ResponseStatus;
 
+import java.util.List;
+
 /**
  * Facade class for `Category` endpoints.
  */
@@ -20,6 +22,26 @@ public class CategoryFacade {
     public CategoryFacade(CategoryService service, UserService userService) {
         this.service = service;
         this.userService = userService;
+    }
+
+    // ------------------------------------------------------------------------------------------ L I S T
+    public Response list(long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+        UserModel user = userService.read(userId);
+        List<CategoryModel> models = service.list(user);
+
+        if (models.isEmpty()) {
+            responseStatus = ResponseStatus.MCL1;
+            Response.Builder builder = new Response.Builder();
+            return builder
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        Response.Builder builder = new Response.Builder();
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(models)
+                .build();
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E

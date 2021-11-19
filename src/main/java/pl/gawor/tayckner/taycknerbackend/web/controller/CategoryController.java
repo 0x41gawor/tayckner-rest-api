@@ -27,8 +27,9 @@ public class CategoryController {
             value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String list() {
-        return "list";
+    public ResponseEntity<Map<String, Object>> list(HttpServletRequest request) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.list(userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
