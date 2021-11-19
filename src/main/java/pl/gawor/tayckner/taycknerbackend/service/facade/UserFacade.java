@@ -6,6 +6,7 @@ import pl.gawor.tayckner.taycknerbackend.service.service.UserService;
 import pl.gawor.tayckner.taycknerbackend.web.response.Response;
 import pl.gawor.tayckner.taycknerbackend.web.response.ResponseStatus;
 import org.mindrot.jbcrypt.BCrypt;
+import pl.gawor.tayckner.taycknerbackend.web.security.JWTGenerator;
 
 /**
  * Facade class for `User` endpoints.
@@ -14,9 +15,11 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UserFacade {
 
     private final UserService service;
+    private final JWTGenerator jwtGenerator;
 
-    public UserFacade(UserService service) {
+    public UserFacade(UserService service, JWTGenerator jwtGenerator) {
         this.service = service;
+        this.jwtGenerator = jwtGenerator;
     }
 
     // -------------------------------------------------------------------------------------- R E G I S T E R
@@ -57,4 +60,34 @@ public class UserFacade {
                 .setResponseStatus(responseStatus)
                 .build();
     }
+    // ---------------------------------------------------------------------------------------- L O G I N
+    public Response login(String username, String password) {
+        ResponseStatus responseStatus = ResponseStatus.L0;
+
+        try {
+            if (!service.existsByUsername(username)) {
+                responseStatus = ResponseStatus.L1;
+                throw new ValidationException();
+            }
+            UserModel user = service.findByUsername(username);
+
+            if (!BCrypt.checkpw(password, user.getPassword())) {
+                responseStatus = ResponseStatus.L2;
+            }
+        } catch (ValidationException e) {
+            Response.Builder builder = new Response.Builder();
+            return builder
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        UserModel user = service.findByUsername(username);
+        String jwt = jwtGenerator.generateJWT(user);
+
+        Response.Builder builder = new Response.Builder();
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(jwt)
+                .build();
+    }
+
 }
