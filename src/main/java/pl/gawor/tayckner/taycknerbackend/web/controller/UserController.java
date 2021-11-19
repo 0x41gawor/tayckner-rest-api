@@ -21,6 +21,7 @@ public class UserController {
     public UserController(UserFacade facade, HabitService habitService) {
         this.facade = facade;
     }
+
     // -------------------------------------------------------------------------------------- R E G I S T E R
     @PostMapping(
             value = "/register",
@@ -35,7 +36,9 @@ public class UserController {
             value = "/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String login(@RequestBody Map<String, String> credentials) {
-        return "login";
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> credentials) {
+        String username = credentials.get("username");
+        String password = credentials.get("password");
+        return facade.login(username, password).getResponseEntity();
     }
 }
