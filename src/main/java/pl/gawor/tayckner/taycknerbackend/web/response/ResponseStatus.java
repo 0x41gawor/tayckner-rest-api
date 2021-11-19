@@ -7,7 +7,7 @@ public enum ResponseStatus {
 
     // register
     R0("R0", "OK, registered successfully!"),
-    R1("R1", "Username already exists"),
+    R1("R1", "Username already taken"),
     R2("R2", "Email already used"),
     R3("R3", "Invalid character in username"),
     R4("R4", "Password too short"),
