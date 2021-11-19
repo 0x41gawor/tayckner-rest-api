@@ -61,6 +61,7 @@ public class CategoryService implements CRUDService<CategoryModel> {
     @Override
     public CategoryModel update(long id, CategoryModel model) {
         CategoryEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 

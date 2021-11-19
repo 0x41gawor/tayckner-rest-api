@@ -104,4 +104,40 @@ public class CategoryFacade {
                 .setContent(readModel)
                 .build();
     }
+    // ------------------------------------------------------------------------------------------- U P D A T E
+    public Response update(long id, CategoryModel model, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate name
+            if (service.existByName(model.getName(), user)) {
+                responseStatus = ResponseStatus.MCC1;
+                throw new ValidationException();
+            }
+            // validate color
+            if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
+                responseStatus = ResponseStatus.MAC2;
+                throw new ValidationException();
+            }
+            // validate user and id
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        model.setUser(user);
+        CategoryModel updatedModel = service.update(id, model);
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
+                .setContent(updatedModel)
+                .build();
+    }
 }
