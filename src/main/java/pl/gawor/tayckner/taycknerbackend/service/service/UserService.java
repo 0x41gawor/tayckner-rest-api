@@ -84,4 +84,10 @@ public class UserService implements CRUDService<UserModel> {
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
     }
+    /**
+     * Method returns User with given username.
+     */
+    public UserModel findByUsername(String username) {
+        return mapper.mapToModel(repository.findUserEntityByUsername(username));
+    }
 }
