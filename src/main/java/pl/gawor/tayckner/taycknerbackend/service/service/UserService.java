@@ -69,4 +69,19 @@ public class UserService implements CRUDService<UserModel> {
         }
         return false;
     }
+
+    /**
+     * Method returns true if user with given username exists.
+     */
+    // ---------------------------------------------------------------E X I S T S   B Y   U S E R N A M E
+    public boolean existsByUsername(String username) {
+        return repository.existsByUsername(username);
+    }
+    /**
+     * Method returns true if user with given email exists.
+     */
+    // ---------------------------------------------------------------------E X I S T S   B Y   E M A I L
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
 }
