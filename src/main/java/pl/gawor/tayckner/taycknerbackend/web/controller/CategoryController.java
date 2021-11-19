@@ -1,8 +1,13 @@
 package pl.gawor.tayckner.taycknerbackend.web.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
+import pl.gawor.tayckner.taycknerbackend.service.facade.CategoryFacade;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Controller class for CRUDing Categories.
@@ -10,6 +15,12 @@ import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 @RestController
 @RequestMapping("api/categories")
 public class CategoryController {
+
+    private final CategoryFacade facade;
+
+    public CategoryController(CategoryFacade facade) {
+        this.facade = facade;
+    }
 
     // -------------------------------------------------------------------------------------- L I S T
     @GetMapping(
@@ -26,8 +37,9 @@ public class CategoryController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String create(@RequestBody CategoryModel model) {
-        return "create";
+    public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody CategoryModel model) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.create(model, userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- R E A D

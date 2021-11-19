@@ -27,11 +27,14 @@ public enum ResponseStatus {
     M0("M0", "OK"),
     // common - list
     MCL1("MCL1", "List is empty"),
-    // common - common
-    MCC1("MCC1", "Object with given id not found"),
+    // all - common
+    MAC1("MCC1", "Object with given id not found"),
+    MAC2("MHC2", "Invalid color"),
     // habit - create
     MHC1("MHC1", "User already has habit with the same name"),
-    MHC2("MHC2", "Invalid color");
+
+    // category create
+    MCC1("MHC1", "User already has a category with the same name");
 
     // the rest of codes will appear here during development
     // the ones above are sample

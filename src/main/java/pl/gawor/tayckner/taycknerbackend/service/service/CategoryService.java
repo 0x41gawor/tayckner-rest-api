@@ -21,11 +21,13 @@ public class CategoryService implements CRUDService<CategoryModel> {
 
     private final CategoryRepository repository;
     private final CategoryMapper mapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public CategoryService(CategoryRepository repository, CategoryMapper mapper) {
+    public CategoryService(CategoryRepository repository, CategoryMapper mapper, UserMapper userMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.userMapper = userMapper;
     }
 
     // -------------------------------------------------------------------------------------- L I S T
@@ -90,5 +92,11 @@ public class CategoryService implements CRUDService<CategoryModel> {
             models.add(mapper.mapToModel(entity));
         }
         return models;
+    }
+    /**
+     * Return true if category with given name and user exists.
+     */
+    public boolean existByName(String name, UserModel user) {
+       return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
     }
 }
