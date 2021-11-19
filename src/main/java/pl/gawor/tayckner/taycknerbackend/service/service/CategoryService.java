@@ -94,12 +94,14 @@ public class CategoryService implements CRUDService<CategoryModel> {
         }
         return models;
     }
+
     /**
      * Return true if category with given name and user exists.
      */
     public boolean existByName(String name, UserModel user) {
-       return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
+        return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
     }
+
     /**
      * Return true if category with given id and user exists.
      */
