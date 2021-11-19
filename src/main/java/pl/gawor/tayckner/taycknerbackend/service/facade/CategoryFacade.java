@@ -19,9 +19,12 @@ public class CategoryFacade {
     private final CategoryService service;
     private final UserService userService;
 
+    private final Response.Builder builder;
+
     public CategoryFacade(CategoryService service, UserService userService) {
         this.service = service;
         this.userService = userService;
+        builder = new Response.Builder();
     }
 
     // ------------------------------------------------------------------------------------------ L I S T
@@ -32,13 +35,13 @@ public class CategoryFacade {
 
         if (models.isEmpty()) {
             responseStatus = ResponseStatus.MCL1;
-            Response.Builder builder = new Response.Builder();
             return builder
+                    .clear()
                     .setResponseStatus(responseStatus)
                     .build();
         }
-        Response.Builder builder = new Response.Builder();
         return builder
+                .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
@@ -61,8 +64,8 @@ public class CategoryFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            Response.Builder builder = new Response.Builder();
             return builder
+                    .clear()
                     .setResponseStatus(responseStatus)
                     .build();
         }
@@ -72,7 +75,6 @@ public class CategoryFacade {
         CategoryModel createdModel = service.create(model);
         createdModel.getUser().setPassword("");
 
-        Response.Builder builder = new Response.Builder();
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
