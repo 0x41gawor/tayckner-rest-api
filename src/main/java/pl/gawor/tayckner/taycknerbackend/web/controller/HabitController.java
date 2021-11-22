@@ -59,8 +59,9 @@ public class HabitController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String update(@PathVariable(name = "id") long id, @RequestBody HabitModel model) {
-        return "update";
+    public ResponseEntity<Map<String, Object>> update(HttpServletRequest request, @PathVariable(name = "id") long id, @RequestBody HabitModel model) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.update(id, model, userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- D E L E T E

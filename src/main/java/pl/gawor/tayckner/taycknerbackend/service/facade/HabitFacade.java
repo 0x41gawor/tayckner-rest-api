@@ -2,6 +2,7 @@ package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.Color;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
@@ -109,6 +110,42 @@ public class HabitFacade {
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
+                .build();
+    }
+    // ------------------------------------------------------------------------------------------- U P D A T E
+    public Response update(long id, HabitModel model, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate name
+            if (service.existByName(model.getName(), user)) {
+                responseStatus = ResponseStatus.MHC1;
+                throw new ValidationException();
+            }
+            // validate color
+            if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
+                responseStatus = ResponseStatus.MAC2;
+                throw new ValidationException();
+            }
+            // validate user and id
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        model.setUser(user);
+        HabitModel updatedModel = service.update(id, model);
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
+                .setContent(updatedModel)
                 .build();
     }
 }
