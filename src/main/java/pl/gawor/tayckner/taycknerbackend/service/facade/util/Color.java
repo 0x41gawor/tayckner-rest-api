@@ -1,4 +1,4 @@
-package pl.gawor.tayckner.taycknerbackend.service.facade;
+package pl.gawor.tayckner.taycknerbackend.service.facade.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
