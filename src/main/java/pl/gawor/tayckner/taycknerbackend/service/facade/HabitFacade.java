@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
+import pl.gawor.tayckner.taycknerbackend.service.facade.util.Color;
+import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
 import pl.gawor.tayckner.taycknerbackend.service.service.HabitService;
 import pl.gawor.tayckner.taycknerbackend.service.service.UserService;
 import pl.gawor.tayckner.taycknerbackend.web.response.Response;
@@ -46,6 +48,39 @@ public class HabitFacade {
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(models)
+                .build();
+    }
+    // -------------------------------------------------------------------------------------- C R E A T E
+    public Response create(HabitModel model, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+        try {
+            // validate name
+            if (service.existByName(model.getName(), user)) {
+                responseStatus = ResponseStatus.MHC1;
+                throw new ValidationException();
+            }
+            // validate color
+            if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
+                responseStatus = ResponseStatus.MAC2;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        model.setId(0);
+        model.setUser(user);
+        HabitModel createdModel = service.create(model);
+        createdModel.getUser().setPassword("");
+
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(createdModel)
                 .build();
     }
 }

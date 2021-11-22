@@ -38,7 +38,7 @@ public enum ResponseStatus {
     MAC3("MAC2", "Start time is before end time"),
 
     // category create
-    MCC1("MHC1", "User already has a category with the same name"),
+    MCC1("MCC1", "User already has a category with the same name"),
     // schedule create
     MSC1("MSC1", "User already has a schedule with the same name"),
     // schedule create

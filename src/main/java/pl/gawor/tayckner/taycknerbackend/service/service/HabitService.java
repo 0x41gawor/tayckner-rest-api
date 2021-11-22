@@ -21,11 +21,13 @@ public class HabitService implements CRUDService<HabitModel> {
 
     private final HabitRepository repository;
     private final HabitMapper mapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public HabitService(HabitRepository repository, HabitMapper mapper) {
+    public HabitService(HabitRepository repository, HabitMapper mapper, UserMapper userMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.userMapper = userMapper;
     }
 
     // -------------------------------------------------------------------------------------- L I S T
@@ -91,5 +93,21 @@ public class HabitService implements CRUDService<HabitModel> {
             models.add(mapper.mapToModel(entity));
         }
         return models;
+    }
+    // ---------------------------------------------------------------- E X I S T S   B Y   U S E R   A N D   N A M E
+
+    /**
+     * Return true if category with given name and user exists.
+     */
+    public boolean existByName(String name, UserModel user) {
+        return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
+    }
+    // --------------------------------------------------------------------- E X I S T S   B Y  I D   A N D   U S E R
+
+    /**
+     * Return true if category with given id and user exists.
+     */
+    public boolean existsByIdAndUser(long id, UserModel user) {
+        return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
     }
 }

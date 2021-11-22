@@ -14,4 +14,6 @@ import java.util.List;
 @Repository
 public interface HabitRepository extends JpaRepository<HabitEntity, Long> {
     List<HabitEntity> findHabitEntitiesByUser(UserEntity user);
+    boolean existsByNameAndUser(String name, UserEntity user);
+    boolean existsByIdAndUser(long id, UserEntity user);
 }
