@@ -42,7 +42,9 @@ public enum ResponseStatus {
     // schedule create
     MSC1("MSC1", "User already has a schedule with the same name"),
     // schedule create
-    MSC2("MSC2", "Duration has to be greater than zero");
+    MSC2("MSC2", "Duration has to be greater than zero"),
+    // activity create
+    MAC4("MAC4", "Category does not belong to user");
 
 
     // the rest of codes will appear here during development

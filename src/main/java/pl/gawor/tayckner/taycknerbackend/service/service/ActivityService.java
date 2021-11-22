@@ -96,7 +96,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return models;
     }
-
+    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
     public List<ActivityModel> list(UserModel user) {
         List<CategoryModel> categories = categoryService.list(user);
         List<ActivityModel> activities = new ArrayList<>();
@@ -108,4 +108,5 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return activities;
     }
+
 }
