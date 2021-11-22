@@ -59,6 +59,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
     @Override
     public HabitEventModel update(long id, HabitEventModel model) {
         HabitEventEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 

@@ -57,6 +57,7 @@ public class UserService implements CRUDService<UserModel> {
     @Override
     public UserModel update(long id, UserModel model) {
         UserEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 

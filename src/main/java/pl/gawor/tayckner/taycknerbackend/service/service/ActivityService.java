@@ -59,6 +59,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
     @Override
     public ActivityModel update(long id, ActivityModel model) {
         ActivityEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 
