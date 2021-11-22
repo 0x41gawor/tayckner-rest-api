@@ -103,6 +103,7 @@ public class ScheduleFacade {
             }
         } catch (ValidationException e) {
             return builder
+                    .clear()
                     .setResponseStatus(responseStatus)
                     .build();
         }
@@ -157,6 +158,7 @@ public class ScheduleFacade {
                 .setContent(updatedModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;

@@ -1,7 +1,6 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
-import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.Color;
@@ -50,6 +49,7 @@ public class HabitFacade {
                 .setContent(models)
                 .build();
     }
+
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(HabitModel model, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -81,6 +81,34 @@ public class HabitFacade {
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
+                .build();
+    }
+
+    // ------------------------------------------------------------------------------------------- R E A D
+    public Response read(long id, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate user and id
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        HabitModel readModel = service.read(id);
+        readModel.getUser().setPassword("");
+
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(readModel)
                 .build();
     }
 }

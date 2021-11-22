@@ -48,8 +48,9 @@ public class HabitController {
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String read(@PathVariable(name = "id") long id) {
-        return "read";
+    public ResponseEntity<Map<String, Object>> read(HttpServletRequest request, @PathVariable(name = "id") long id) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.read(id, userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- U P D A T E
