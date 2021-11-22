@@ -148,4 +148,30 @@ public class HabitFacade {
                 .setContent(updatedModel)
                 .build();
     }
+    // ------------------------------------------------------------------------------------------- D E L E T E
+    public Response delete(long id, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+        UserModel user = userService.read(userId);
+        try {
+            // validate user and id
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        if (!service.delete(id)) {
+            responseStatus = ResponseStatus.MAR1;
+        }
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
+                .build();
+    }
 }
