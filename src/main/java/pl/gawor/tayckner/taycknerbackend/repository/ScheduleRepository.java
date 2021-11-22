@@ -15,4 +15,5 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> {
     List<ScheduleEntity> findScheduleEntitiesByUser(UserEntity user);
     boolean existsByNameAndUser(String name, UserEntity user);
+    boolean existsByIdAndUser(long id, UserEntity user);
 }

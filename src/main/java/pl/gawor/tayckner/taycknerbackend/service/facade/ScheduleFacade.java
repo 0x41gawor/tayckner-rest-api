@@ -1,6 +1,7 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
+import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
@@ -84,6 +85,31 @@ public class ScheduleFacade {
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
+                .build();
+    }
+    // ------------------------------------------------------------------------------------------- R E A D
+    public Response read(long id, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+
+        try {
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        ScheduleModel readModel = service.read(id);
+        readModel.getUser().setPassword("");
+
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(readModel)
                 .build();
     }
 }
