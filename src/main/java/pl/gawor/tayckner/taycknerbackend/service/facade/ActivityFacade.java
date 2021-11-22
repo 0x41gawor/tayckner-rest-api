@@ -129,4 +129,54 @@ public class ActivityFacade {
                 .setContent(readModel)
                 .build();
     }
+    // ------------------------------------------------------------------------------------------- U P D A T E
+    public Response update(long id, ActivityModel model, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate id
+            if (!service.existsById(id)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            // validate user
+            if (user.getId() != service.read(id).getCategory().getUser().getId()) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            //validate category
+            if (!categoryService.existsByIdAndUser(model.getCategory().getId(), user)) {
+                responseStatus = ResponseStatus.MAC4;
+                throw new ValidationException();
+            }
+            // assign category from db based on model's category id
+            model.setCategory(categoryService.read(model.getCategory().getId()));
+            // validate times
+            if (model.getStartTime().isAfter(model.getEndTime())) {
+                responseStatus = ResponseStatus.MAC3;
+                throw new ValidationException();
+            }
+            // validate duration
+            if (model.getDuration() < 0) {
+                responseStatus = ResponseStatus.MSC2;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        ActivityModel updatedModel = service.update(id, model);
+
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
+                .setContent(updatedModel)
+                .build();
+    }
+
 }
