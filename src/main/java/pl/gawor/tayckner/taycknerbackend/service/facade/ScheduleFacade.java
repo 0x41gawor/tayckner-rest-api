@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
+import pl.gawor.tayckner.taycknerbackend.service.facade.util.Color;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
 import pl.gawor.tayckner.taycknerbackend.service.service.ScheduleService;
 import pl.gawor.tayckner.taycknerbackend.service.service.UserService;
@@ -87,6 +88,7 @@ public class ScheduleFacade {
                 .setContent(createdModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -94,6 +96,7 @@ public class ScheduleFacade {
         UserModel user = userService.read(userId);
 
         try {
+            // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
                 responseStatus = ResponseStatus.MAR1;
                 throw new ValidationException();
@@ -110,6 +113,48 @@ public class ScheduleFacade {
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
+                .build();
+    }
+
+    // ------------------------------------------------------------------------------------------- U P D A T E
+    public Response update(long id, ScheduleModel model, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate name
+            if (service.existByName(model.getName(), user)) {
+                responseStatus = ResponseStatus.MCC1;
+                throw new ValidationException();
+            }
+            // validate user and id
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            // validate times
+            if (model.getStartTime().isAfter(model.getEndTime())) {
+                responseStatus = ResponseStatus.MAC3;
+                throw new ValidationException();
+            }
+            // validate duration
+            if (model.getDuration() < 0) {
+                responseStatus = ResponseStatus.MSC2;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        model.setUser(user);
+        ScheduleModel updatedModel = service.update(id, model);
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
+                .setContent(updatedModel)
                 .build();
     }
 }

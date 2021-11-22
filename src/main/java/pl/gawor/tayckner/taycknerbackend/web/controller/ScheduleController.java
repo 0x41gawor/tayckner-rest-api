@@ -27,7 +27,7 @@ public class ScheduleController {
             value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public  ResponseEntity<Map<String, Object>> list(HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> list(HttpServletRequest request) {
         int userId = (int) request.getAttribute("userId");
         return facade.list(userId).getResponseEntity();
     }
@@ -59,8 +59,9 @@ public class ScheduleController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String update(@PathVariable(name = "id") long id, @RequestBody ScheduleModel model) {
-        return "update";
+    public ResponseEntity<Map<String, Object>> update(HttpServletRequest request, @PathVariable(name = "id") long id, @RequestBody ScheduleModel model) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.update(id, model, userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- D E L E T E

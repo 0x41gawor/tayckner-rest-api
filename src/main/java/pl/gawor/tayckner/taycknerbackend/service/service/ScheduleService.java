@@ -62,6 +62,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
     @Override
     public ScheduleModel update(long id, ScheduleModel model) {
         ScheduleEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 
@@ -95,6 +96,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         return models;
     }
     // ---------------------------------------------------------------- E X I S T S   B Y   U S E R   A N D   N A M E
+
     /**
      * Return true if scheudle with given name and user exists.
      */
@@ -102,6 +104,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
     }
     // --------------------------------------------------------------------- E X I S T S   B Y  I D   A N D   U S E R
+
     /**
      * Return true if category with given id and user exists.
      */
