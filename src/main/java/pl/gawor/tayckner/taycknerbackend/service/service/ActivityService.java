@@ -108,5 +108,9 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return activities;
     }
+    // -------------------------------------------------------------------------------------- E X I S T S   B Y   I D
+    public boolean existsById(long id) {
+        return repository.existsById(id);
+    }
 
 }
