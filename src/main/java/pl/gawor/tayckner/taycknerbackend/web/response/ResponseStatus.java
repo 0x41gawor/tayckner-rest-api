@@ -34,9 +34,16 @@ public enum ResponseStatus {
     MAC2("MHC2", "Invalid color"),
     // habit - create
     MHC1("MHC1", "User already has habit with the same name"),
+    // all - create
+    MAC3("MAC2", "Start time is before end time"),
 
     // category create
-    MCC1("MHC1", "User already has a category with the same name");
+    MCC1("MHC1", "User already has a category with the same name"),
+    // schedule create
+    MSC1("MSC1", "User already has a schedule with the same name"),
+    // schedule create
+    MSC2("MSC2", "Duration has to be greater than zero");
+
 
     // the rest of codes will appear here during development
     // the ones above are sample

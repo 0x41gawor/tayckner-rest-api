@@ -1,8 +1,13 @@
 package pl.gawor.tayckner.taycknerbackend.web.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
+import pl.gawor.tayckner.taycknerbackend.service.facade.ScheduleFacade;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Controller class for CRUDing Schedules.
@@ -11,13 +16,20 @@ import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 @RequestMapping("/api/schedules")
 public class ScheduleController {
 
+    private final ScheduleFacade facade;
+
+    public ScheduleController(ScheduleFacade facade) {
+        this.facade = facade;
+    }
+
     // -------------------------------------------------------------------------------------- L I S T
     @GetMapping(
             value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String list() {
-        return "list";
+    public  ResponseEntity<Map<String, Object>> list(HttpServletRequest request) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.list(userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
@@ -26,8 +38,9 @@ public class ScheduleController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String create(@RequestBody ScheduleModel model) {
-        return "create";
+    public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody ScheduleModel model) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.create(model, userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- R E A D

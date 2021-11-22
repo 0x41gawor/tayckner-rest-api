@@ -22,10 +22,13 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
     private final ScheduleRepository repository;
     private final ScheduleMapper mapper;
 
+    private final UserMapper userMapper;
+
     @Autowired
-    public ScheduleService(ScheduleRepository repository, ScheduleMapper mapper) {
+    public ScheduleService(ScheduleRepository repository, ScheduleMapper mapper, UserMapper userMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.userMapper = userMapper;
     }
 
     // -------------------------------------------------------------------------------------- L I S T
@@ -90,5 +93,12 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
             models.add(mapper.mapToModel(entity));
         }
         return models;
+    }
+    // ---------------------------------------------------------------- E X I S T S   B Y   U S E R   A N D   N A M E
+    /**
+     * Return true if scheudle with given name and user exists.
+     */
+    public boolean existByName(String name, UserModel user) {
+        return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
     }
 }
