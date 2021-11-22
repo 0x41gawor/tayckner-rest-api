@@ -67,10 +67,11 @@ public class ScheduleController {
     // -------------------------------------------------------------------------------------- D E L E T E
     @DeleteMapping(
             value = "{id}",
-            produces = "text/plain"
+            produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String delete(@PathVariable(name = "id") long id) {
-        return "delete";
+    public ResponseEntity<Map<String, Object>> delete(HttpServletRequest request, @PathVariable(name = "id") long id) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.delete(id, userId).getResponseEntity();
     }
 
 }

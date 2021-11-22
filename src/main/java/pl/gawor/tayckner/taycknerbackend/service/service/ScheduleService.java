@@ -98,7 +98,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
     // ---------------------------------------------------------------- E X I S T S   B Y   U S E R   A N D   N A M E
 
     /**
-     * Return true if scheudle with given name and user exists.
+     * Return true if schedule with given name and user exists.
      */
     public boolean existByName(String name, UserModel user) {
         return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
@@ -106,7 +106,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
     // --------------------------------------------------------------------- E X I S T S   B Y  I D   A N D   U S E R
 
     /**
-     * Return true if category with given id and user exists.
+     * Return true if schedule with given id and user exists.
      */
     public boolean existsByIdAndUser(long id, UserModel user) {
         return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
