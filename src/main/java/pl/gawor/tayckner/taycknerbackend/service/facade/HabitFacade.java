@@ -2,7 +2,6 @@ package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
-import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.Color;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;

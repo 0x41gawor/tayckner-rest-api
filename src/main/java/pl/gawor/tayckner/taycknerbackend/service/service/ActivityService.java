@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.ActivityRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ActivityEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.ActivityMapper;
@@ -22,10 +23,13 @@ public class ActivityService implements CRUDService<ActivityModel> {
     private final ActivityRepository repository;
     private final ActivityMapper mapper;
 
+    private final CategoryService categoryService;
+
     @Autowired
-    public ActivityService(ActivityRepository repository, ActivityMapper mapper) {
+    public ActivityService(ActivityRepository repository, ActivityMapper mapper, CategoryService categoryService, UserService userService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.categoryService = categoryService;
     }
 
     // -------------------------------------------------------------------------------------- L I S T
@@ -91,5 +95,17 @@ public class ActivityService implements CRUDService<ActivityModel> {
             models.add(mapper.mapToModel(entity));
         }
         return models;
+    }
+
+    public List<ActivityModel> list(UserModel user) {
+        List<CategoryModel> categories = categoryService.list(user);
+        List<ActivityModel> activities = new ArrayList<>();
+        for (CategoryModel category : categories) {
+            for (ActivityModel activity : list(category)) {
+                activity.getCategory().getUser().setPassword("");
+                activities.add(activity);
+            }
+        }
+        return activities;
     }
 }
