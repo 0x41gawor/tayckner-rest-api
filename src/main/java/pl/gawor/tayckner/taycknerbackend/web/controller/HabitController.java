@@ -1,8 +1,13 @@
 package pl.gawor.tayckner.taycknerbackend.web.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
+import pl.gawor.tayckner.taycknerbackend.service.facade.HabitFacade;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Controller class for CRUDing Habits.
@@ -11,13 +16,20 @@ import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 @RequestMapping("/api/habits")
 public class HabitController {
 
+    private final HabitFacade facade;
+
+    public HabitController(HabitFacade facade) {
+        this.facade = facade;
+    }
+
     // -------------------------------------------------------------------------------------- L I S T
     @GetMapping(
             value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String list() {
-        return "list";
+    public ResponseEntity<Map<String, Object>> list(HttpServletRequest request) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.list(userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
