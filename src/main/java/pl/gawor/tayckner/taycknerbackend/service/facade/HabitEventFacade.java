@@ -80,4 +80,36 @@ public class HabitEventFacade {
                 .setContent(createdModel)
                 .build();
     }
+    // ------------------------------------------------------------------------------------------- R E A D
+    public Response read(long id, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate id
+            if (!service.existsById(id)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            // validate user
+            if (user.getId() != service.read(id).getHabit().getUser().getId()) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        HabitEventModel readModel = service.read(id);
+        readModel.getHabit().getUser().setPassword("");
+
+        return builder
+                .setResponseStatus(responseStatus)
+                .setContent(readModel)
+                .build();
+    }
 }

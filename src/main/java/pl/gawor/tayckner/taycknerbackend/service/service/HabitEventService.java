@@ -114,4 +114,8 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return habitEvents;
     }
+    // -------------------------------------------------------------------------------------- E X I S T S   B Y   I D
+    public boolean existsById(long id) {
+        return repository.existsById(id);
+    }
 }

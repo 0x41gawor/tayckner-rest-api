@@ -14,4 +14,5 @@ import java.util.List;
 @Repository
 public interface HabitEventRepository extends JpaRepository<HabitEventEntity, Long> {
     List<HabitEventEntity> findHabitEventEntitiesByHabit(HabitEntity habit);
+    boolean existsById(long id);
 }
