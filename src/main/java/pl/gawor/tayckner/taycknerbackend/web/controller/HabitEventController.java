@@ -38,8 +38,9 @@ public class HabitEventController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public String create(@RequestBody HabitEventModel model) {
-        return "create";
+    public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody HabitEventModel model) {
+        int userId = (int) request.getAttribute("userId");
+        return facade.create(model, userId).getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- R E A D
