@@ -112,4 +112,43 @@ public class HabitEventFacade {
                 .setContent(readModel)
                 .build();
     }
+    // ------------------------------------------------------------------------------------------- U P D A T E
+    public Response update(long id, HabitEventModel model, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+
+        UserModel user = userService.read(userId);
+
+        try {
+            // validate id
+            if (!service.existsById(id)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            // validate user
+            if (user.getId() != service.read(id).getHabit().getUser().getId()) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            //validate habit
+            if (!habitService.existsByIdAndUser(model.getHabit().getId(), user)) {
+                responseStatus = ResponseStatus.MAC4;
+                throw new ValidationException();
+            }
+            // assign category from db based on model's category id
+            model.setHabit(habitService.read(model.getHabit().getId()));
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+        HabitEventModel updatedModel = service.update(id, model);
+        updatedModel.getHabit().getUser().setPassword("");
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
+                .setContent(updatedModel)
+                .build();
+    }
 }
