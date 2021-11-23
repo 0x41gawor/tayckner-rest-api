@@ -6,11 +6,12 @@ import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 
 /**
  * Repository class for `User`.
- *
  */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findUserEntityByUsername(String username);
+
     boolean existsByUsername(String username);
+
     boolean existsByEmail(String email);
 }

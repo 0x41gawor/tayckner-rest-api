@@ -9,10 +9,10 @@ import java.util.List;
 
 /**
  * Repository class for `Activity`.
- *
  */
 @Repository
 public interface ActivityRepository extends JpaRepository<ActivityEntity, Long> {
     List<ActivityEntity> findActivityEntitiesByCategory(CategoryEntity category);
+
     boolean existsById(long id);
 }

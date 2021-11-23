@@ -9,11 +9,12 @@ import java.util.List;
 
 /**
  * Repository class for `Schedule`.
- *
  */
 @Repository
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> {
     List<ScheduleEntity> findScheduleEntitiesByUser(UserEntity user);
+
     boolean existsByNameAndUser(String name, UserEntity user);
+
     boolean existsByIdAndUser(long id, UserEntity user);
 }

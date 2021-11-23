@@ -9,10 +9,10 @@ import java.util.List;
 
 /**
  * Repository class for `HabitEvent`.
- *
  */
 @Repository
 public interface HabitEventRepository extends JpaRepository<HabitEventEntity, Long> {
     List<HabitEventEntity> findHabitEventEntitiesByHabit(HabitEntity habit);
+
     boolean existsById(long id);
 }
