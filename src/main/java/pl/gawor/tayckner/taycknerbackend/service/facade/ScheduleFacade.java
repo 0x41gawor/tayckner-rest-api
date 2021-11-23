@@ -54,11 +54,6 @@ public class ScheduleFacade {
 
         UserModel user = userService.read(userId);
         try {
-            // validate name
-            if (service.existByName(model.getName(), user)) {
-                responseStatus = ResponseStatus.MSC1;
-                throw new ValidationException();
-            }
             // validate times
             if (model.getStartTime().isAfter(model.getEndTime())) {
                 responseStatus = ResponseStatus.MAC3;
@@ -121,11 +116,6 @@ public class ScheduleFacade {
         UserModel user = userService.read(userId);
 
         try {
-            // validate name
-            if (service.existByName(model.getName(), user)) {
-                responseStatus = ResponseStatus.MCC1;
-                throw new ValidationException();
-            }
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
                 responseStatus = ResponseStatus.MAR1;
