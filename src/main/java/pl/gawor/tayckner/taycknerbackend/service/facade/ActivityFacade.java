@@ -2,7 +2,6 @@ package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
-import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
 import pl.gawor.tayckner.taycknerbackend.service.service.ActivityService;
@@ -23,7 +22,6 @@ public class ActivityFacade {
     private final CategoryService categoryService;
 
     private final Response.Builder builder;
-
 
     public ActivityFacade(ActivityService service, UserService userService, CategoryService categoryService) {
         this.service = service;
@@ -97,6 +95,7 @@ public class ActivityFacade {
                 .setContent(createdModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -129,6 +128,7 @@ public class ActivityFacade {
                 .setContent(readModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, ActivityModel model, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -178,6 +178,7 @@ public class ActivityFacade {
                 .setContent(updatedModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;

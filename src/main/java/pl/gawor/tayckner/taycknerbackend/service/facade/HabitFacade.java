@@ -29,7 +29,6 @@ public class HabitFacade {
         builder = new Response.Builder();
     }
 
-
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -111,6 +110,7 @@ public class HabitFacade {
                 .setContent(readModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, HabitModel model, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -147,6 +147,7 @@ public class HabitFacade {
                 .setContent(updatedModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;

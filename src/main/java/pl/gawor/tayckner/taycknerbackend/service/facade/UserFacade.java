@@ -61,6 +61,7 @@ public class UserFacade {
                 .setResponseStatus(responseStatus)
                 .build();
     }
+
     // ---------------------------------------------------------------------------------------- L O G I N
     public Response login(String username, String password) {
         ResponseStatus responseStatus = ResponseStatus.L0;
@@ -90,5 +91,4 @@ public class UserFacade {
                 .setContent(jwt)
                 .build();
     }
-
 }

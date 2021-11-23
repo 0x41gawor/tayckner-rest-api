@@ -20,7 +20,6 @@ public class HabitEventFacade {
 
     private final HabitEventService service;
     private final UserService userService;
-
     private final HabitService habitService;
 
     private final Response.Builder builder;
@@ -51,6 +50,7 @@ public class HabitEventFacade {
                 .setContent(models)
                 .build();
     }
+
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(HabitEventModel model, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -79,6 +79,7 @@ public class HabitEventFacade {
                 .setContent(createdModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -111,6 +112,7 @@ public class HabitEventFacade {
                 .setContent(readModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, HabitEventModel model, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
@@ -150,6 +152,7 @@ public class HabitEventFacade {
                 .setContent(updatedModel)
                 .build();
     }
+
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
         ResponseStatus responseStatus = ResponseStatus.M0;
