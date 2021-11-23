@@ -1,7 +1,6 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
-import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitEventModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
@@ -149,6 +148,37 @@ public class HabitEventFacade {
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(updatedModel)
+                .build();
+    }
+    // ------------------------------------------------------------------------------------------- D E L E T E
+    public Response delete(long id, long userId) {
+        ResponseStatus responseStatus = ResponseStatus.M0;
+        UserModel user = userService.read(userId);
+        try {
+            // validate id
+            if (!service.existsById(id)) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+            // validate user
+            if (user.getId() != service.read(id).getHabit().getUser().getId()) {
+                responseStatus = ResponseStatus.MAR1;
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            return builder
+                    .clear()
+                    .setResponseStatus(responseStatus)
+                    .build();
+        }
+
+        if (!service.delete(id)) {
+            responseStatus = ResponseStatus.MAR1;
+        }
+
+        return builder
+                .clear()
+                .setResponseStatus(responseStatus)
                 .build();
     }
 }
