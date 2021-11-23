@@ -30,7 +30,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         this.habitService = habitService;
     }
 
-    // -------------------------------------------------------------------------------------- L I S T
+    // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<HabitEventModel> list() {
         List<HabitEventEntity> entities = repository.findAll();
@@ -49,7 +49,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         return mapper.mapToModel(repository.save(entity));
     }
 
-    // -------------------------------------------------------------------------------------- R E A D
+    // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public HabitEventModel read(long id) {
         Optional<HabitEventEntity> optional = repository.findById(id);
@@ -74,7 +74,8 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return false;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   H A B I T
+    // ------------------------------------------------------------------------ L I S T   B Y   H A B I T
+
     /**
      * List by habit.
      * <p>
@@ -93,11 +94,12 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return models;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
+    // -------------------------------------------------------------------------- L I S T   B Y   U S E R
+
     /**
      * List by user.
      * <p>
-     * Returns list of model which Habits User is equal to one given in param.
+     * Returns list of model which Habit's User is equal to one given in param.
      * </p>
      *
      * @param user User model by which search is done
@@ -114,7 +116,15 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return habitEvents;
     }
-    // -------------------------------------------------------------------------------------- E X I S T S   B Y   I D
+
+    // -------------------------------------------------------------------------- E X I S T S   B Y   I D
+
+    /**
+     * Return true if habit event with given id exists.
+     *
+     * @param id id to search for
+     * @return true if Habit Event with given id exists
+     */
     public boolean existsById(long id) {
         return repository.existsById(id);
     }

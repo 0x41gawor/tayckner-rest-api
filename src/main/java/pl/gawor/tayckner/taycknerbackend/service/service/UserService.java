@@ -26,7 +26,7 @@ public class UserService implements CRUDService<UserModel> {
         this.mapper = mapper;
     }
 
-    // -------------------------------------------------------------------------------------- L I S T
+    // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<UserModel> list() {
         List<UserEntity> entities = repository.findAll();
@@ -45,7 +45,7 @@ public class UserService implements CRUDService<UserModel> {
         return mapper.mapToModel(repository.save(entity));
     }
 
-    // -------------------------------------------------------------------------------------- R E A D
+    // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public UserModel read(long id) {
         Optional<UserEntity> optional = repository.findById(id);
@@ -73,21 +73,30 @@ public class UserService implements CRUDService<UserModel> {
 
     /**
      * Method returns true if user with given username exists.
+     * @param username  username for search
+     * @return true if UserModel with given username is found
      */
     // ---------------------------------------------------------------E X I S T S   B Y   U S E R N A M E
     public boolean existsByUsername(String username) {
         return repository.existsByUsername(username);
     }
+
     /**
      * Method returns true if user with given email exists.
+     * @param email  email for search
+     * @return true if UserModel with given email is found
      */
     // ---------------------------------------------------------------------E X I S T S   B Y   E M A I L
     public boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
     }
+
     /**
      * Method returns User with given username.
+     * @param username username for search
+     * @return UserModel with given username or null if not found
      */
+    // -------------------------------------------------------------------F I N D   B Y   U S E R N A M E
     public UserModel findByUsername(String username) {
         return mapper.mapToModel(repository.findUserEntityByUsername(username));
     }

@@ -32,7 +32,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         this.categoryService = categoryService;
     }
 
-    // -------------------------------------------------------------------------------------- L I S T
+    // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<ActivityModel> list() {
         List<ActivityEntity> entities = repository.findAll();
@@ -51,7 +51,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         return mapper.mapToModel(repository.save(entity));
     }
 
-    // -------------------------------------------------------------------------------------- R E A D
+    // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public ActivityModel read(long id) {
         Optional<ActivityEntity> optional = repository.findById(id);
@@ -76,7 +76,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return false;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   C A T E G O R Y
+    // ------------------------------------------------------------------ L I S T   B Y   C A T E G O R Y
 
     /**
      * List by category.
@@ -96,7 +96,18 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return models;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
+
+    // -------------------------------------------------------------------------- L I S T   B Y   U S E R
+
+    /**
+     * List by user.
+     * <p>
+     * Returns list of model which Category's property User is equal to given in param.
+     * </p>
+     *
+     * @param user user model by which search is done
+     * @return List of all models in database, that has given user
+     */
     public List<ActivityModel> list(UserModel user) {
         List<CategoryModel> categories = categoryService.list(user);
         List<ActivityModel> activities = new ArrayList<>();
@@ -108,7 +119,14 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return activities;
     }
-    // -------------------------------------------------------------------------------------- E X I S T S   B Y   I D
+
+    /**
+     * Return true if activity event with given id exists.
+     *
+     * @param id id to search for
+     * @return true if Activity with given id exists
+     */
+    // -------------------------------------------------------------------------- E X I S T S   B Y   I D
     public boolean existsById(long id) {
         return repository.existsById(id);
     }
