@@ -42,6 +42,9 @@ public class HabitFacade {
                     .setResponseStatus(responseStatus)
                     .build();
         }
+
+        models.forEach((h) -> h.getUser().setPassword(""));
+
         return builder
                 .clear()
                 .setResponseStatus(responseStatus)

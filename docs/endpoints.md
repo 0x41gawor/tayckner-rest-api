@@ -168,9 +168,9 @@ Content-Length: 67
 
 #### `api/activities/` - GET
 
-| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
-| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
-|     GET     | `api/models` |    -     |   JSON   |       -        |      -       | Application returns list of models. |
+| HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body |             Happy path              |
+| :---------: | :--------------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
+|     GET     | `api/activities` |    -     |   JSON   |       -        |      -       | Application returns list of models. |
 
 ##### Response protocol
 
@@ -244,9 +244,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 
 #### `api/activities/` - POST
 
-| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
-| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
-|    POST     | `api/models` |   JSON   |   JSON   |       -        |    Model     | Application saves new model to database and returns it in response. |
+| HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body  |                          Happy path                          |
+| :---------: | :--------------: | :------: | :------: | :------------: | :-----------: | :----------------------------------------------------------: |
+|    POST     | `api/activities` |   JSON   |   JSON   |       -        | ActivityModel | Application saves new model to database and returns it in response. |
 
 ##### Response protocol
 
@@ -311,9 +311,9 @@ Content-Length: 281
 
 #### `api/activities/{id}` - GET
 
-| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
-| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
-|     GET     | `api/models/{id}` |    -     |   JSON   |      `id`      |      -       | Application returns model with given id in response. |
+| HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
+| :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
+|     GET     | `api/activities/{id}` |    -     |   JSON   |      `id`      |      -       | Application returns model with given id in response. |
 
 ##### Response protocol
 
@@ -363,9 +363,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 
 #### `api/activities/{id}` - PUT
 
-| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
-| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
-|     PUT     | `api/models/{id}` |   JSON   |   JSON   |      `id`      |    Model     | Application updates object with given id with new model. Then returns updated model. |
+| HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body  |                          Happy path                          |
+| :---------: | :-------------------: | :------: | :------: | :------------: | :-----------: | :----------------------------------------------------------: |
+|     PUT     | `api/activities/{id}` |   JSON   |   JSON   |      `id`      | ActivityModel | Application updates object with given id with new model. Then returns updated model. |
 
 ##### Response protocol
 
@@ -432,9 +432,9 @@ Content-Length: 285
 
 #### `api/activities/{id}` - DELETE
 
-| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
-| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
-|   DELETE    | `api/models/{id}` |    -     |    -     |      `id`      |      -       | Application deletes object with given id. |
+| HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
+| :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
+|   DELETE    | `api/activities/{id}` |    -     |    -     |      `id`      |      -       | Application deletes object with given id. |
 
 ##### Response protocol
 
@@ -460,4 +460,532 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
     "content": null
 }
 ```
+### Category
+
+#### `api/categories/` - GET
+
+| HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body |             Happy path              |
+| :---------: | :--------------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
+|     GET     | `api/categories` |    -     |   JSON   |       -        |      -       | Application returns list of models. |
+
+##### Response protocol
+
+| code |     message     |      content       |
+| :--: | :-------------: | :----------------: |
+| XxX0 |       OK        | `<List of Models>` |
+| XxL1 | "List is empty" |        null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/categories/` - POST
+
+| HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :--------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|    POST     | `api/categories` |   JSON   |   JSON   |       -        |    Model     | Application saves new model to database and returns it in response. |
+
+##### Response protocol
+
+| code |               message                |      content      |
+| :--: | :----------------------------------: | :---------------: |
+| XxX0 |                  OK                  | `<Created Model>` |
+| AcX1 |   Category does not belong to user   |       null        |
+| XxX4 |    Start time is before end time     |       null        |
+| XxX5 | Duration has to be greater than zero |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/categories/{id}` - GET
+
+| HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
+| :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
+|     GET     | `api/categories/{id}` |    -     |   JSON   |      `id`      |      -       | Application returns model with given id in response. |
+
+##### Response protocol
+
+| code |                 message                 |    content     |
+| :--: | :-------------------------------------: | :------------: |
+| XxX0 |                   OK                    | `<Read Model>` |
+| XxX2 | Object with given id not found for user |      null      |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/categories/{id}` - PUT
+
+| HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|     PUT     | `api/categories/{id}` |   JSON   |   JSON   |      `id`      |    Model     | Application updates object with given id with new model. Then returns updated model. |
+
+##### Response protocol
+
+| code |                 message                 |      content      |
+| :--: | :-------------------------------------: | :---------------: |
+| XxX0 |                   OK                    | `<Updated model>` |
+| AcX1 |    Category does not belong to user     |       null        |
+| XxX4 |      Start time is before end time      |       null        |
+| XxX5 |  Duration has to be greater than zero   |       null        |
+| XxX2 | Object with given id not found for user |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/categories/{id}` - DELETE
+
+| HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
+| :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
+|   DELETE    | `api/categories/{id}` |    -     |    -     |      `id`      |      -       | Application deletes object with given id. |
+
+##### Response protocol
+
+| code |                 message                 | content |
+| :--: | :-------------------------------------: | :-----: |
+| XxX0 |                   OK                    |  null   |
+| XxX2 | Object with given id not found for user |  null   |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+### Model
+
+#### `api/models/` - GET
+
+| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
+| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
+|     GET     | `api/models` |    -     |   JSON   |       -        |      -       | Application returns list of models. |
+
+##### Response protocol
+
+| code |     message     |      content       |
+| :--: | :-------------: | :----------------: |
+| XxX0 |       OK        | `<List of Models>` |
+| XxL1 | "List is empty" |        null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/` - POST
+
+| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|    POST     | `api/models` |   JSON   |   JSON   |       -        |    Model     | Application saves new model to database and returns it in response. |
+
+##### Response protocol
+
+| code |               message                |      content      |
+| :--: | :----------------------------------: | :---------------: |
+| XxX0 |                  OK                  | `<Created Model>` |
+| AcX1 |   Category does not belong to user   |       null        |
+| XxX4 |    Start time is before end time     |       null        |
+| XxX5 | Duration has to be greater than zero |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - GET
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
+|     GET     | `api/models/{id}` |    -     |   JSON   |      `id`      |      -       | Application returns model with given id in response. |
+
+##### Response protocol
+
+| code |                 message                 |    content     |
+| :--: | :-------------------------------------: | :------------: |
+| XxX0 |                   OK                    | `<Read Model>` |
+| XxX2 | Object with given id not found for user |      null      |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - PUT
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|     PUT     | `api/models/{id}` |   JSON   |   JSON   |      `id`      |    Model     | Application updates object with given id with new model. Then returns updated model. |
+
+##### Response protocol
+
+| code |                 message                 |      content      |
+| :--: | :-------------------------------------: | :---------------: |
+| XxX0 |                   OK                    | `<Updated model>` |
+| AcX1 |    Category does not belong to user     |       null        |
+| XxX4 |      Start time is before end time      |       null        |
+| XxX5 |  Duration has to be greater than zero   |       null        |
+| XxX2 | Object with given id not found for user |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - DELETE
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
+|   DELETE    | `api/models/{id}` |    -     |    -     |      `id`      |      -       | Application deletes object with given id. |
+
+##### Response protocol
+
+| code |                 message                 | content |
+| :--: | :-------------------------------------: | :-----: |
+| XxX0 |                   OK                    |  null   |
+| XxX2 | Object with given id not found for user |  null   |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+### Model
+
+#### `api/models/` - GET
+
+| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
+| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
+|     GET     | `api/models` |    -     |   JSON   |       -        |      -       | Application returns list of models. |
+
+##### Response protocol
+
+| code |     message     |      content       |
+| :--: | :-------------: | :----------------: |
+| XxX0 |       OK        | `<List of Models>` |
+| XxL1 | "List is empty" |        null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/` - POST
+
+| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|    POST     | `api/models` |   JSON   |   JSON   |       -        |    Model     | Application saves new model to database and returns it in response. |
+
+##### Response protocol
+
+| code |               message                |      content      |
+| :--: | :----------------------------------: | :---------------: |
+| XxX0 |                  OK                  | `<Created Model>` |
+| AcX1 |   Category does not belong to user   |       null        |
+| XxX4 |    Start time is before end time     |       null        |
+| XxX5 | Duration has to be greater than zero |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - GET
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
+|     GET     | `api/models/{id}` |    -     |   JSON   |      `id`      |      -       | Application returns model with given id in response. |
+
+##### Response protocol
+
+| code |                 message                 |    content     |
+| :--: | :-------------------------------------: | :------------: |
+| XxX0 |                   OK                    | `<Read Model>` |
+| XxX2 | Object with given id not found for user |      null      |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - PUT
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|     PUT     | `api/models/{id}` |   JSON   |   JSON   |      `id`      |    Model     | Application updates object with given id with new model. Then returns updated model. |
+
+##### Response protocol
+
+| code |                 message                 |      content      |
+| :--: | :-------------------------------------: | :---------------: |
+| XxX0 |                   OK                    | `<Updated model>` |
+| AcX1 |    Category does not belong to user     |       null        |
+| XxX4 |      Start time is before end time      |       null        |
+| XxX5 |  Duration has to be greater than zero   |       null        |
+| XxX2 | Object with given id not found for user |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - DELETE
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
+|   DELETE    | `api/models/{id}` |    -     |    -     |      `id`      |      -       | Application deletes object with given id. |
+
+##### Response protocol
+
+| code |                 message                 | content |
+| :--: | :-------------------------------------: | :-----: |
+| XxX0 |                   OK                    |  null   |
+| XxX2 | Object with given id not found for user |  null   |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+### Model
+
+#### `api/models/` - GET
+
+| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
+| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
+|     GET     | `api/models` |    -     |   JSON   |       -        |      -       | Application returns list of models. |
+
+##### Response protocol
+
+| code |     message     |      content       |
+| :--: | :-------------: | :----------------: |
+| XxX0 |       OK        | `<List of Models>` |
+| XxL1 | "List is empty" |        null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/` - POST
+
+| HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|    POST     | `api/models` |   JSON   |   JSON   |       -        |    Model     | Application saves new model to database and returns it in response. |
+
+##### Response protocol
+
+| code |               message                |      content      |
+| :--: | :----------------------------------: | :---------------: |
+| XxX0 |                  OK                  | `<Created Model>` |
+| AcX1 |   Category does not belong to user   |       null        |
+| XxX4 |    Start time is before end time     |       null        |
+| XxX5 | Duration has to be greater than zero |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - GET
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
+|     GET     | `api/models/{id}` |    -     |   JSON   |      `id`      |      -       | Application returns model with given id in response. |
+
+##### Response protocol
+
+| code |                 message                 |    content     |
+| :--: | :-------------------------------------: | :------------: |
+| XxX0 |                   OK                    | `<Read Model>` |
+| XxX2 | Object with given id not found for user |      null      |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - PUT
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
+|     PUT     | `api/models/{id}` |   JSON   |   JSON   |      `id`      |    Model     | Application updates object with given id with new model. Then returns updated model. |
+
+##### Response protocol
+
+| code |                 message                 |      content      |
+| :--: | :-------------------------------------: | :---------------: |
+| XxX0 |                   OK                    | `<Updated model>` |
+| AcX1 |    Category does not belong to user     |       null        |
+| XxX4 |      Start time is before end time      |       null        |
+| XxX5 |  Duration has to be greater than zero   |       null        |
+| XxX2 | Object with given id not found for user |       null        |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+#### `api/models/{id}` - DELETE
+
+| HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
+| :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
+|   DELETE    | `api/models/{id}` |    -     |    -     |      `id`      |      -       | Application deletes object with given id. |
+
+##### Response protocol
+
+| code |                 message                 | content |
+| :--: | :-------------------------------------: | :-----: |
+| XxX0 |                   OK                    |  null   |
+| XxX2 | Object with given id not found for user |  null   |
+
+##### Sample request
+
+```http
+
+```
+
+##### Sample response
+
+```json
+
+```
+
+
 

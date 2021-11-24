@@ -42,6 +42,9 @@ public class ActivityFacade {
                     .setResponseStatus(responseStatus)
                     .build();
         }
+
+        models.forEach((a) -> a.getCategory().getUser().setPassword(""));
+
         return builder
                 .clear()
                 .setResponseStatus(responseStatus)

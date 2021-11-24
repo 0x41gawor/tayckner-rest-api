@@ -42,6 +42,9 @@ public class CategoryFacade {
                     .setResponseStatus(responseStatus)
                     .build();
         }
+
+        models.forEach((c) -> c.getUser().setPassword(""));
+
         return builder
                 .clear()
                 .setResponseStatus(responseStatus)

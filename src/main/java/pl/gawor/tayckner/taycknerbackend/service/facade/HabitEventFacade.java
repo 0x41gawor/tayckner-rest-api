@@ -44,6 +44,9 @@ public class HabitEventFacade {
                     .setResponseStatus(responseStatus)
                     .build();
         }
+
+        models.forEach((h) -> h.getHabit().getUser().setPassword(""));
+
         return builder
                 .clear()
                 .setResponseStatus(responseStatus)

@@ -41,6 +41,9 @@ public class ScheduleFacade {
                     .setResponseStatus(responseStatus)
                     .build();
         }
+
+        models.forEach((s) -> s.getUser().setPassword(""));
+
         return builder
                 .clear()
                 .setResponseStatus(responseStatus)
