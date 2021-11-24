@@ -478,13 +478,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/categories/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzNzc3MTM0MiwidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.RPqZTl5HrE1mF4TcCtGs9AuaFjxhNLkQJuzNTvFW618
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": [
+        {
+            "id": 2,
+            "name": "Work",
+            "description": "Time spend on work, breaks counted in as work also",
+            "color": "#ff0111",
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        }
+    ]
+}
 ```
 
 #### `api/categories/` - POST
@@ -495,23 +516,51 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 
 ##### Response protocol
 
-| code |               message                |      content      |
-| :--: | :----------------------------------: | :---------------: |
-| XxX0 |                  OK                  | `<Created Model>` |
-| AcX1 |   Category does not belong to user   |       null        |
-| XxX4 |    Start time is before end time     |       null        |
-| XxX5 | Duration has to be greater than zero |       null        |
+| code |                    message                     |      content      |
+| :--: | :--------------------------------------------: | :---------------: |
+| XxX0 |                       OK                       | `<Created Model>` |
+| CaX1 | User already has a category with the same name |       null        |
+| XxX3 |                 Invalid color                  |       null        |
 
 ##### Sample request
 
 ```http
+POST /api/categories/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzNzc3MTM0MiwidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.RPqZTl5HrE1mF4TcCtGs9AuaFjxhNLkQJuzNTvFW618
+Content-Type: application/json
+Content-Length: 220
 
+{
+    "id": 1,
+    "name": "Work",
+    "description": "Time spend on work, breaks counted in as work also",
+    "color": "#ff0111",
+    "user": null
+}
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Work",
+        "description": "Time spend on work, breaks counted in as work also",
+        "color": "#ff0111",
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
 #### `api/categories/{id}` - GET
@@ -530,13 +579,32 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/categories/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzNzc3MTM0MiwidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.RPqZTl5HrE1mF4TcCtGs9AuaFjxhNLkQJuzNTvFW618
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Work",
+        "description": "Time spend on work, breaks counted in as work also",
+        "color": "#ff0111",
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
 #### `api/categories/{id}` - PUT
@@ -547,24 +615,52 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 
 ##### Response protocol
 
-| code |                 message                 |      content      |
-| :--: | :-------------------------------------: | :---------------: |
-| XxX0 |                   OK                    | `<Updated model>` |
-| AcX1 |    Category does not belong to user     |       null        |
-| XxX4 |      Start time is before end time      |       null        |
-| XxX5 |  Duration has to be greater than zero   |       null        |
-| XxX2 | Object with given id not found for user |       null        |
+| code |                    message                     |      content      |
+| :--: | :--------------------------------------------: | :---------------: |
+| XxX0 |                       OK                       | `<Updated model>` |
+| CaX1 | User already has a category with the same name |       null        |
+| XxX3 |                 Invalid color                  |       null        |
+| XxX2 |    Object with given id not found for user     |       null        |
 
 ##### Sample request
 
 ```http
+PUT /api/categories/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzNzc3MTM0MiwidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.RPqZTl5HrE1mF4TcCtGs9AuaFjxhNLkQJuzNTvFW618
+Content-Type: application/json
+Content-Length: 180
 
+ {
+        "id": 2,
+        "name": "Working",
+        "description": "Time spend on work. Breaks counted in as work also",
+        "color": "#ffbbbb",
+        "user": null
+}
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Working",
+        "description": "Time spend on work. Breaks counted in as work also",
+        "color": "#ffbbbb",
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
 #### `api/categories/{id}` - DELETE
@@ -583,13 +679,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+DELETE /api/categories/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzNzc3MTM0MiwidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.RPqZTl5HrE1mF4TcCtGs9AuaFjxhNLkQJuzNTvFW618
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": null
+}
 ```
 ### Model
 
