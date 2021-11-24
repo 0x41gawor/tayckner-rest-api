@@ -104,7 +104,7 @@ public class CategoryFacade {
         }
 
         CategoryModel readModel = service.read(id);
-
+        readModel.getUser().setPassword("");
         return builder
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
@@ -140,6 +140,7 @@ public class CategoryFacade {
         }
         model.setUser(user);
         CategoryModel updatedModel = service.update(id, model);
+        updatedModel.getUser().setPassword("");
 
         return builder
                 .clear()
