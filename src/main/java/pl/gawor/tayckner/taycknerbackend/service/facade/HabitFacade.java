@@ -31,12 +31,12 @@ public class HabitFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<HabitModel> models = service.list(user);
 
         if (models.isEmpty()) {
-            responseStatus = ResponseStatus.MAL1;
+            responseStatus = ResponseStatus.XxL1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -51,18 +51,18 @@ public class HabitFacade {
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(HabitModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
         try {
             // validate name
             if (service.existByName(model.getName(), user)) {
-                responseStatus = ResponseStatus.MHC1;
+                responseStatus = ResponseStatus.HaX1;
                 throw new ValidationException();
             }
             // validate color
             if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
-                responseStatus = ResponseStatus.MAC2;
+                responseStatus = ResponseStatus.XxX3;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -85,14 +85,14 @@ public class HabitFacade {
 
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
 
         try {
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -113,23 +113,23 @@ public class HabitFacade {
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, HabitModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
         try {
             // validate name
             if (service.existByName(model.getName(), user)) {
-                responseStatus = ResponseStatus.MHC1;
+                responseStatus = ResponseStatus.HaX1;
                 throw new ValidationException();
             }
             // validate color
             if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
-                responseStatus = ResponseStatus.MAC2;
+                responseStatus = ResponseStatus.XxX3;
                 throw new ValidationException();
             }
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -150,12 +150,12 @@ public class HabitFacade {
 
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         try {
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -166,7 +166,7 @@ public class HabitFacade {
         }
 
         if (!service.delete(id)) {
-            responseStatus = ResponseStatus.MAR1;
+            responseStatus = ResponseStatus.XxX2;
         }
 
         return builder

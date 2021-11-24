@@ -32,11 +32,11 @@ public class ActivityFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<ActivityModel> models = service.list(user);
         if (models.isEmpty()) {
-            responseStatus = ResponseStatus.MAL1;
+            responseStatus = ResponseStatus.XxL1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -51,12 +51,12 @@ public class ActivityFacade {
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(ActivityModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
         // validate if category belongs to user
         if (!categoryService.existsByIdAndUser(model.getCategory().getId(), user)) {
-            responseStatus = ResponseStatus.MAC4;
+            responseStatus = ResponseStatus.AcX1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -70,12 +70,12 @@ public class ActivityFacade {
         try {
             // validate times
             if (model.getStartTime().isAfter(model.getEndTime())) {
-                responseStatus = ResponseStatus.MAC3;
+                responseStatus = ResponseStatus.XxX4;
                 throw new ValidationException();
             }
             // validate duration
             if (model.getDuration() < 0) {
-                responseStatus = ResponseStatus.MSC2;
+                responseStatus = ResponseStatus.XxX5;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -98,19 +98,19 @@ public class ActivityFacade {
 
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
 
         try {
             // validate id
             if (!service.existsById(id)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate user
             if (user.getId() != service.read(id).getCategory().getUser().getId()) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -131,36 +131,36 @@ public class ActivityFacade {
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, ActivityModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
 
         try {
             // validate id
             if (!service.existsById(id)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate user
             if (user.getId() != service.read(id).getCategory().getUser().getId()) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             //validate category
             if (!categoryService.existsByIdAndUser(model.getCategory().getId(), user)) {
-                responseStatus = ResponseStatus.MAC4;
+                responseStatus = ResponseStatus.AcX1;
                 throw new ValidationException();
             }
             // assign category from db based on model's category id
             model.setCategory(categoryService.read(model.getCategory().getId()));
             // validate times
             if (model.getStartTime().isAfter(model.getEndTime())) {
-                responseStatus = ResponseStatus.MAC3;
+                responseStatus = ResponseStatus.XxX4;
                 throw new ValidationException();
             }
             // validate duration
             if (model.getDuration() < 0) {
-                responseStatus = ResponseStatus.MSC2;
+                responseStatus = ResponseStatus.XxX5;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -181,17 +181,17 @@ public class ActivityFacade {
 
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         try {
             // validate id
             if (!service.existsById(id)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate user
             if (user.getId() != service.read(id).getCategory().getUser().getId()) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -202,7 +202,7 @@ public class ActivityFacade {
         }
 
         if (!service.delete(id)) {
-            responseStatus = ResponseStatus.MAR1;
+            responseStatus = ResponseStatus.XxX2;
         }
 
         return builder

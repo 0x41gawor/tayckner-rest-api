@@ -30,12 +30,12 @@ public class ScheduleFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<ScheduleModel> models = service.list(user);
 
         if (models.isEmpty()) {
-            responseStatus = ResponseStatus.MAL1;
+            responseStatus = ResponseStatus.XxL1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -50,18 +50,18 @@ public class ScheduleFacade {
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(ScheduleModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
         try {
             // validate times
             if (model.getStartTime().isAfter(model.getEndTime())) {
-                responseStatus = ResponseStatus.MAC3;
+                responseStatus = ResponseStatus.XxX4;
                 throw new ValidationException();
             }
             // validate duration
             if (model.getDuration() < 0) {
-                responseStatus = ResponseStatus.MSC2;
+                responseStatus = ResponseStatus.XxX5;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -84,14 +84,14 @@ public class ScheduleFacade {
 
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
 
         try {
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -112,23 +112,23 @@ public class ScheduleFacade {
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, ScheduleModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
         try {
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate times
             if (model.getStartTime().isAfter(model.getEndTime())) {
-                responseStatus = ResponseStatus.MAC3;
+                responseStatus = ResponseStatus.XxX4;
                 throw new ValidationException();
             }
             // validate duration
             if (model.getDuration() < 0) {
-                responseStatus = ResponseStatus.MSC2;
+                responseStatus = ResponseStatus.XxX5;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -149,12 +149,12 @@ public class ScheduleFacade {
 
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         try {
             // validate user and id
             if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -165,7 +165,7 @@ public class ScheduleFacade {
         }
 
         if (!service.delete(id)) {
-            responseStatus = ResponseStatus.MAR1;
+            responseStatus = ResponseStatus.XxX2;
         }
 
         return builder

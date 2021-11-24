@@ -2,6 +2,30 @@ package pl.gawor.tayckner.taycknerbackend.web.response;
 
 /**
  * Enum for response codes.
+ *
+ * <p>
+ *     Rules for defining code names:<br>
+ *     - Each code has a number at the end. <br>
+ *     - Only positive (indicating no errors) code can have number 0.<br>
+ *     - Codes associated with register start with `R`<br>
+ *     - Codes associated with login start with 'L'<br>
+ *     - Code associated with model has 3 chars distinguisher.<br>
+ *     -- First 2 chars are model id<br>
+ *     ---- Ac - Activity<br>
+ *     ---- Ca - Category<br>
+ *     ---- Ha - Habit<br>
+ *     ---- He - Habit Event<br>
+ *     ---- Sc - Schedule<br>
+ *     ---- Xx - if code appears in more than 1 model<br>
+ *     -- Last char indicates the CRUD method<br>
+ *     ---- L - List<br>
+ *     ---- C - Create<br>
+ *     ---- R - Read<br>
+ *     ---- U - Update<br>
+ *     ---- D - Delete<br>
+ *     ---- X - if code appears in more than 1 method<br>
+ *
+ * </p>
  */
 public enum ResponseStatus {
 
@@ -24,31 +48,27 @@ public enum ResponseStatus {
     L2("L2", "Wrong password"),
 
     // model
-    M0("M0", "OK"),
-    // all - list
-    MAL1("MCL1", "List is empty"),
-    // all - read
-    MAR1("MAR1", "Object with given id not found for user"),
-    // all - common
-    MAC1("MCC1", "Object with given id not found"),
-    MAC2("MHC2", "Invalid color"),
-    // habit - create
-    MHC1("MHC1", "User already has habit with the same name"),
-    // all - create
-    MAC3("MAC2", "Start time is before end time"),
+    // all models - all methods
+    XxX0("XxX0", "OK"),
+    // all models- list
+    XxL1("XxL1", "List is empty"),
+    // all models- read, update, delete
+    XxX2("XxX2", "Object with given id not found for user"),
+    // activity  - create, update
+    AcX1("AcX1", "Category does not belong to user"),
+    // habit-event -  create, update
+    HeX1("HeX1", "Habit does not belong to user"),
+    // category, habit - create, update
+    XxX3("XxX3", "Invalid color"),
+    // habit - create, update
+    HaX1("HaX1", "User already has habit with the same name"),
+    // activity, schedule - create, update
+    XxX4("XxX4", "Start time is before end time"),
+    // category - create, update
+    CaX1("CaX1", "User already has a category with the same name"),
+    // activity, schedule - create, update
+    XxX5("XxX5", "Duration has to be greater than zero");
 
-    // category create
-    MCC1("MCC1", "User already has a category with the same name"),
-    // schedule create
-    MSC1("MSC1", "User already has a schedule with the same name"),
-    // schedule create
-    MSC2("MSC2", "Duration has to be greater than zero"),
-    // activity create
-    MAC4("MAC4", "Category does not belong to user");
-
-
-    // the rest of codes will appear here during development
-    // the ones above are sample
 
     private final String code;
     private final String message;

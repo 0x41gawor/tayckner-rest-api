@@ -33,12 +33,12 @@ public class HabitEventFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<HabitEventModel> models = service.list(user);
 
         if (models.isEmpty()) {
-            responseStatus = ResponseStatus.MAL1;
+            responseStatus = ResponseStatus.XxL1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -53,12 +53,12 @@ public class HabitEventFacade {
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(HabitEventModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
         // validate if habit belongs to user
         if (!habitService.existsByIdAndUser(model.getHabit().getId(), user)) {
-            responseStatus = ResponseStatus.MAC4;
+            responseStatus = ResponseStatus.HeX1;
             return builder
                     .clear()
                     .setResponseStatus(responseStatus)
@@ -82,19 +82,19 @@ public class HabitEventFacade {
 
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
 
         try {
             // validate id
             if (!service.existsById(id)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate user
             if (user.getId() != service.read(id).getHabit().getUser().getId()) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -115,24 +115,24 @@ public class HabitEventFacade {
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, HabitEventModel model, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
 
         try {
             // validate id
             if (!service.existsById(id)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate user
             if (user.getId() != service.read(id).getHabit().getUser().getId()) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             //validate habit
             if (!habitService.existsByIdAndUser(model.getHabit().getId(), user)) {
-                responseStatus = ResponseStatus.MAC4;
+                responseStatus = ResponseStatus.HeX1;
                 throw new ValidationException();
             }
             // assign category from db based on model's category id
@@ -155,17 +155,17 @@ public class HabitEventFacade {
 
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
-        ResponseStatus responseStatus = ResponseStatus.M0;
+        ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         try {
             // validate id
             if (!service.existsById(id)) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
             // validate user
             if (user.getId() != service.read(id).getHabit().getUser().getId()) {
-                responseStatus = ResponseStatus.MAR1;
+                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -176,7 +176,7 @@ public class HabitEventFacade {
         }
 
         if (!service.delete(id)) {
-            responseStatus = ResponseStatus.MAR1;
+            responseStatus = ResponseStatus.XxX2;
         }
 
         return builder
