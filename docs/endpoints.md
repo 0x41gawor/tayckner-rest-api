@@ -164,11 +164,9 @@ Content-Length: 67
 }
 ```
 
-### Models
+### Activity
 
-Generic documentation for 5 models. Instead of each "model" occurrence you can put one of {"activity", "category", "schedule", "habit", "habit-event"} and instead of each "models" - {"activities", "categories", "schedules", "habits", "habit-events"}.
-
-### `api/models/` - GET
+#### `api/activities/` - GET
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -176,57 +174,75 @@ Generic documentation for 5 models. Instead of each "model" occurrence you can p
 
 ##### Response protocol
 
-Response is a JSON with the following fields:
-
-- **code** 
-- **content**
-
-It can be pair of one of these:
-
-| code |      content       |
-| :--: | :----------------: |
-|  0   | `<List of Models>` |
-| ML1  |  "List is empty"   |
+| code |     message     |      content       |
+| :--: | :-------------: | :----------------: |
+| XxX0 |       OK        | `<List of Models>` |
+| XxL1 | "List is empty" |        null        |
 
 ##### Sample request
 
 ```http
-GET /api/habits/ HTTP/1.1
-Host: localhost:8080
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzNTczNzA5NiwidXNlcklkIjo1LCJ1c2VybmFtZSI6IkouZ3JvbmR6aXUifQ.21NHGIMM9_Tv6gp-YdyLKlMwFlgzCrM3o-R8ATV9hCs
+GET /api/activities/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzNzcyMzkwMiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Ik1hcm9Lb2xhbm8xMjMifQ.Awh7pJ1vlCc_08j5HPGXIGQ6rDBfCO-hez627GXFZeI
 ```
 
 ##### Sample response
 
 ```json
 {
-    "code": "0",
+    "code": "XxX0",
+    "message": "OK",
     "content": [
         {
-        "id": 4,
-        "name": "Workout",
-        "color": "#11ff11",
-        "user": {
-            "id": 5,
-            "username": "J.grondziu",
-            "password": null
+            "id": 3,
+            "name": "Push day",
+            "category": {
+                "id": 1,
+                "name": "Workout",
+                "description": "...",
+                "color": "#ffffff",
+                "user": {
+                    "id": 1,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+            },
+            "startTime": "2021-11-22T19:37:02",
+            "endTime": "2021-11-22T19:37:02",
+            "duration": 10,
+            "breaks": 0
+        },
+        {
+            "id": 4,
+            "name": "Pull day",
+            "category": {
+                "id": 1,
+                "name": "Workout",
+                "description": "...",
+                "color": "#ffffff",
+                "user": {
+                    "id": 1,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+            },
+            "startTime": "2021-11-22T19:37:02",
+            "endTime": "2021-11-22T19:37:02",
+            "duration": 10,
+            "breaks": 0
         }
-    },
-    {
-        "id": 6,
-        "name": "Fast-Food",
-        "color": "#ff0000",
-        "user": {
-            "id": 5,
-            "username": "J.grondziu",
-            "password": null
-        }
-    }
     ]
 }
 ```
 
-### `api/models/` - POST
+#### `api/activities/` - POST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -234,32 +250,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
 
 ##### Response protocol
 
-Response is a JSON with the following fields:
-
-- **code** 
-- **content**
-
-It can be pair of one of these:
-
-| code |                   content                   |
-| :--: | :-----------------------------------------: |
-|  0   |              `<Created Model>`              |
-| MCH1 | "User already has habit with the same name" |
-| MCH2 |               "Invalid color"               |
-| MCA1 |               "Invalid date"                |
+| code |               message                |      content      |
+| :--: | :----------------------------------: | :---------------: |
+| XxX0 |                  OK                  | `<Created Model>` |
+| AcX1 |   Category does not belong to user   |       null        |
+| XxX4 |    Start time is before end time     |       null        |
+| XxX5 | Duration has to be greater than zero |       null        |
 
 ##### Sample request
 
 ```http
-POST /api/habits/ HTTP/1.1
-Host: localhost:8080
+POST /api/activities/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzNzcyMzkwMiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Ik1hcm9Lb2xhbm8xMjMifQ.Awh7pJ1vlCc_08j5HPGXIGQ6rDBfCO-hez627GXFZeI
 Content-Type: application/json
-Content-Length: 67
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzNTczNzA5NiwidXNlcklkIjo1LCJ1c2VybmFtZSI6IkouZ3JvbmR6aXUifQ.21NHGIMM9_Tv6gp-YdyLKlMwFlgzCrM3o-R8ATV9hCs
-
+Content-Length: 281
 {
- "name": "Reading",
- "color": "#13ffff"
+            "id": 5,
+            "name": "Leg day",
+            "category": {
+                "id": 1
+            },
+            "startTime": "2021-11-22T19:37:02",
+            "endTime": "2021-11-22T19:37:02",
+            "duration": 10,
+            "breaks": 0
 }
 ```
 
@@ -267,22 +282,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
 
 ```json
 {
-    "code": "0",
-    "content": [
-        {
-        "id": 12,
-        "name": "Reading",
-        "color": "#13ffff",
-        "user": {
-            "id": 5,
-            "username": "J.grondziu",
-            "password": null
-        }
-    ]
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 5,
+        "name": "Leg day",
+        "category": {
+            "id": 1,
+            "name": "Workout",
+            "description": "...",
+            "color": "#ffffff",
+            "user": {
+                    "id": 1,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+        },
+        "startTime": "2021-11-22T19:37:02",
+        "endTime": "2021-11-22T19:37:02",
+        "duration": 10,
+        "breaks": 0
+    }
 }
 ```
 
-### `api/models/{id}` - GET
+#### `api/activities/{id}` - GET
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -290,46 +317,51 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
 
 ##### Response protocol
 
-Response is a JSON with the following fields:
-
-- **code** 
-- **content**
-
-It can be pair of one of these:
-
-| code |             content              |
-| :--: | :------------------------------: |
-|  0   |          `<Read Model>`          |
-| MR1  | "Object with given id not found" |
+| code |                 message                 |    content     |
+| :--: | :-------------------------------------: | :------------: |
+| XxX0 |                   OK                    | `<Read Model>` |
+| XxX2 | Object with given id not found for user |      null      |
 
 ##### Sample request
 
 ```http
-GET /api/habits/12 HTTP/1.1
-Host: localhost:8080
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzNTczNzA5NiwidXNlcklkIjo1LCJ1c2VybmFtZSI6IkouZ3JvbmR6aXUifQ.21NHGIMM9_Tv6gp-YdyLKlMwFlgzCrM3o-R8ATV9hCs
+GET /api/activities/3 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzNzcyMzkwMiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Ik1hcm9Lb2xhbm8xMjMifQ.Awh7pJ1vlCc_08j5HPGXIGQ6rDBfCO-hez627GXFZeI
 ```
 
 ##### Sample response
 
 ```json
 {
-    "code": "0",
-    "content": [
-        {
-        "id": 12,
-        "name": "Reading",
-        "color": "#13ffff",
-        "user": {
-            "id": 5,
-            "username": "J.grondziu",
-            "password": null
+    "code": "XxX0",
+    "message": "OK",
+    "content":  {
+            "id": 3,
+            "name": "Push day",
+            "category": {
+                "id": 1,
+                "name": "Workout",
+                "description": "...",
+                "color": "#ffffff",
+                "user": {
+                    "id": 1,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+            },
+            "startTime": "2021-11-22T19:37:02",
+            "endTime": "2021-11-22T19:37:02",
+            "duration": 10,
+            "breaks": 0
         }
-    ]
 }
 ```
 
-### `api/models/{id}` - PUT
+#### `api/activities/{id}` - PUT
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -337,30 +369,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
 
 ##### Response protocol
 
-Response is a JSON with the following fields:
-
-- **code** 
-- **content**
-
-It can be pair of one of these:
-
-| code |                   content                   |
-| :--: | :-----------------------------------------: |
-|  0   |              `<Updated Model>`              |
-| MR1  |      "Object with given id not found"       |
-| MC1  | "User already has model with the same name" |
-| MC2  |               "Invalid color"               |
+| code |                 message                 |      content      |
+| :--: | :-------------------------------------: | :---------------: |
+| XxX0 |                   OK                    | `<Updated model>` |
+| AcX1 |    Category does not belong to user     |       null        |
+| XxX4 |      Start time is before end time      |       null        |
+| XxX5 |  Duration has to be greater than zero   |       null        |
+| XxX2 | Object with given id not found for user |       null        |
 
 ##### Sample request
 
 ```http
-GET /api/habits/12 HTTP/1.1
-Host: localhost:8080
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzNTczNzA5NiwidXNlcklkIjo1LCJ1c2VybmFtZSI6IkouZ3JvbmR6aXUifQ.21NHGIMM9_Tv6gp-YdyLKlMwFlgzCrM3o-R8ATV9hCs
+PUT /api/activities/3 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzNzcyMzkwMiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Ik1hcm9Lb2xhbm8xMjMifQ.Awh7pJ1vlCc_08j5HPGXIGQ6rDBfCO-hez627GXFZeI
+Content-Type: application/json
+Content-Length: 285
 
 {
- "name": "Reading but faster",
- "color": "#13ffff"
+            "id": 3,
+            "name": "Push day but updated",
+            "category": {
+                "id": 1
+            },
+            "startTime": "2021-11-22T19:37:02",
+            "endTime": "2021-11-22T19:37:02",
+            "duration": 10,
+            "breaks": 0
 }
 ```
 
@@ -368,22 +403,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
 
 ```json
 {
-    "code": "0",
-    "content": [
-        {
-        "id": 12,
-        "name": "Reading but faster",
-        "color": "#13ffff",
-        "user": {
-            "id": 5,
-            "username": "J.grondziu",
-            "password": null
-        }
-    ]
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 3,
+       "name": "Push day but updated",
+        "category": {
+            "id": 1,
+                "name": "Workout",
+                "description": "...",
+                "color": "#ffffff",
+            "user": {
+                    "id": 1,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+        },
+        "startTime": "2021-11-22T19:37:02",
+        "endTime": "2021-11-22T19:37:02",
+        "duration": 10,
+        "breaks": 0
+    }
 }
 ```
 
-### `api/models/{id}` - DELETE
+#### `api/activities/{id}` - DELETE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
@@ -391,31 +438,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzN
 
 ##### Response protocol
 
-Response is a JSON with the following fields:
-
-- **code** 
-- **content**
-
-It can be pair of one of these:
-
-| code |             content              |
-| :--: | :------------------------------: |
-|  0   |  "Object with id {id} deleted"   |
-| MD1  | "Object with given id not found" |
+| code |                 message                 | content |
+| :--: | :-------------------------------------: | :-----: |
+| XxX0 |                   OK                    |  null   |
+| XxX2 | Object with given id not found for user |  null   |
 
 ##### Sample request
 
 ```http
-DELETE /api/habits/12 HTTP/1.1
-Host: localhost:8080
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU3Mjc1NzQsImV4cCI6MTYzNTczNzA5NiwidXNlcklkIjo1LCJ1c2VybmFtZSI6IkouZ3JvbmR6aXUifQ.21NHGIMM9_Tv6gp-YdyLKlMwFlgzCrM3o-R8ATV9hCs
+DELETE /api/activities/3 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzNzcyMzkwMiwidXNlcklkIjoxLCJ1c2VybmFtZSI6Ik1hcm9Lb2xhbm8xMjMifQ.Awh7pJ1vlCc_08j5HPGXIGQ6rDBfCO-hez627GXFZeI
 ```
 
 ##### Sample response
 
 ```json
 {
-    "code": "0",
-    "content": "Object with id 12 deleted"
+    "code": "XxX0",
+    "message": "OK",
+    "content": null
 }
 ```
+
