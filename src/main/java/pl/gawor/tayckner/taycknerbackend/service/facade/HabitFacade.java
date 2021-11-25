@@ -143,6 +143,7 @@ public class HabitFacade {
         }
         model.setUser(user);
         HabitModel updatedModel = service.update(id, model);
+        updatedModel.getUser().setPassword("");
 
         return builder
                 .clear()
