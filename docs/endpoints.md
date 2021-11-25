@@ -166,7 +166,7 @@ Content-Length: 67
 
 ### Activity
 
-#### `api/activities/` - GET
+#### `api/activities/` - LIST
 
 | HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :--------------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -242,7 +242,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 }
 ```
 
-#### `api/activities/` - POST
+#### `api/activities/` - CREATE
 
 | HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body  |                          Happy path                          |
 | :---------: | :--------------: | :------: | :------: | :------------: | :-----------: | :----------------------------------------------------------: |
@@ -309,7 +309,7 @@ Content-Length: 281
 }
 ```
 
-#### `api/activities/{id}` - GET
+#### `api/activities/{id}` - READ
 
 | HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -361,7 +361,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 }
 ```
 
-#### `api/activities/{id}` - PUT
+#### `api/activities/{id}` - UPDATE
 
 | HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body  |                          Happy path                          |
 | :---------: | :-------------------: | :------: | :------: | :------------: | :-----------: | :----------------------------------------------------------: |
@@ -462,7 +462,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3MTQzODAsImV4cCI6MTYzN
 ```
 ### Category
 
-#### `api/categories/` - GET
+#### `api/categories/` - LIST
 
 | HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :--------------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -508,7 +508,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
 }
 ```
 
-#### `api/categories/` - POST
+#### `api/categories/` - CREATE
 
 | HTTP Method |      Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :--------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -563,7 +563,7 @@ Content-Length: 220
 }
 ```
 
-#### `api/categories/{id}` - GET
+#### `api/categories/{id}` - READ
 
 | HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -607,7 +607,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
 }
 ```
 
-#### `api/categories/{id}` - PUT
+#### `api/categories/{id}` - UPDATE
 
 | HTTP Method |         Value         | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :-------------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -693,9 +693,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
     "content": null
 }
 ```
-### Model
+### Habit
 
-#### `api/habits/` - GET
+#### `api/habits/` - LIST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -740,7 +740,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 }
 ```
 
-#### `api/habits/` - POST
+#### `api/habits/` - CREATE
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -793,7 +793,7 @@ Content-Length: 117
 }
 ```
 
-#### `api/habits/{id}` - GET
+#### `api/habits/{id}` - READ
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -836,7 +836,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 }
 ```
 
-#### `api/habits/{id}` - PUT
+#### `api/habits/{id}` - UPDATE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -924,7 +924,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ### Model
 
-#### `api/models/` - GET
+#### `api/models/` - LIST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -949,7 +949,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ```
 
-#### `api/models/` - POST
+#### `api/models/` - CREATE
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -976,7 +976,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ```
 
-#### `api/models/{id}` - GET
+#### `api/models/{id}` - READ
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -1001,7 +1001,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ```
 
-#### `api/models/{id}` - PUT
+#### `api/models/{id}` - UPDATE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -1056,7 +1056,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ### Model
 
-#### `api/models/` - GET
+#### `api/models/` - LIST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -1081,7 +1081,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ```
 
-#### `api/models/` - POST
+#### `api/models/` - CREATE
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -1108,7 +1108,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ```
 
-#### `api/models/{id}` - GET
+#### `api/models/{id}` - READ
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -1133,7 +1133,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ```
 
-#### `api/models/{id}` - PUT
+#### `api/models/{id}` - UPDATE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
