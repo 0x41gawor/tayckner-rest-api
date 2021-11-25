@@ -695,7 +695,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
 ```
 ### Model
 
-#### `api/models/` - GET
+#### `api/habits/` - GET
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -711,43 +711,89 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/habits/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": [
+        {
+            "id": 2,
+            "name": "Fast food",
+            "color": "#ffffff",
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        }
+    ]
+}
 ```
 
-#### `api/models/` - POST
+#### `api/habits/` - POST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
-|    POST     | `api/models` |   JSON   |   JSON   |       -        |    Model     | Application saves new model to database and returns it in response. |
+|    POST     | `api/models` |   JSON   |   JSON   |       -        |  HabitModel  | Application saves new model to database and returns it in response. |
 
 ##### Response protocol
 
-| code |               message                |      content      |
-| :--: | :----------------------------------: | :---------------: |
-| XxX0 |                  OK                  | `<Created Model>` |
-| AcX1 |   Category does not belong to user   |       null        |
-| XxX4 |    Start time is before end time     |       null        |
-| XxX5 | Duration has to be greater than zero |       null        |
+| code |                  message                  |      content      |
+| :--: | :---------------------------------------: | :---------------: |
+| XxX0 |                    OK                     | `<Created Model>` |
+| HaX1 | User already has habit with the same name |       null        |
+| XxX3 |               Invalid color               |       null        |
 
 ##### Sample request
 
 ```http
+POST /api/habits/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
+Content-Type: application/json
+Content-Length: 117
 
+{
+            "id": 0,
+            "name": "Workout",
+            "color": "#fdefce",
+            "user": null
+}
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 3,
+        "name": "Workout",
+        "color": "#fdefce",
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
-#### `api/models/{id}` - GET
+#### `api/habits/{id}` - GET
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -763,44 +809,89 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/habits/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Fast food",
+        "color": "#ffffff",
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
-#### `api/models/{id}` - PUT
+#### `api/habits/{id}` - PUT
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
-|     PUT     | `api/models/{id}` |   JSON   |   JSON   |      `id`      |    Model     | Application updates object with given id with new model. Then returns updated model. |
+|     PUT     | `api/models/{id}` |   JSON   |   JSON   |      `id`      |  HabitModel  | Application updates object with given id with new model. Then returns updated model. |
 
 ##### Response protocol
 
-| code |                 message                 |      content      |
-| :--: | :-------------------------------------: | :---------------: |
-| XxX0 |                   OK                    | `<Updated model>` |
-| AcX1 |    Category does not belong to user     |       null        |
-| XxX4 |      Start time is before end time      |       null        |
-| XxX5 |  Duration has to be greater than zero   |       null        |
-| XxX2 | Object with given id not found for user |       null        |
+| code |                  message                  |      content      |
+| :--: | :---------------------------------------: | :---------------: |
+| XxX0 |                    OK                     | `<Updated model>` |
+| HaX1 | User already has habit with the same name |       null        |
+| XxX3 |               Invalid color               |       null        |
+| XxX2 |  Object with given id not found for user  |       null        |
 
 ##### Sample request
 
 ```http
+PUT /api/habits/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
+Content-Type: application/json
+Content-Length: 105
+
+{
+        "id": 3,
+        "name": "Work-out",
+        "color": "#fdefce",
+        "user": null
+}
 
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Work-out",
+        "color": "#fdefce",
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
-#### `api/models/{id}` - DELETE
+#### `api/habits/{id}` - DELETE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
@@ -816,13 +907,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc3NjE4MjAsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+DELETE /api/habits/3 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": null
+}
 ```
 
 ### Model
