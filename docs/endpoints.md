@@ -922,9 +922,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 }
 ```
 
-### Model
+### Habit-Event
 
-#### `api/models/` - LIST
+#### `api/habit-events/` - LIST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -940,16 +940,61 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/habit-events/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": [
+        {
+            "id": 8,
+            "habit": {
+                "id": 2,
+                "name": "Work-out",
+                "color": "#fdefce",
+                "user": {
+                    "id": 2,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+            },
+            "date": "2021-11-25",
+            "comment": "Pull day",
+            "value": 1
+        },
+        {
+            "id": 9,
+            "habit": {
+                "id": 2,
+                "name": "Work-out",
+                "color": "#fdefce",
+                "user": {
+                    "id": 2,
+                    "username": "VitaminBoy",
+                    "password": "",
+                    "firstName": "Casimir",
+                    "lastName": "Funk",
+                    "email": "k.funk@biopoczta.pl"
+                }
+            },
+            "date": "2021-11-25",
+            "comment": "Push day",
+            "value": 1
+        }
+    ]
+}
 ```
 
-#### `api/models/` - CREATE
+#### `api/habit-events/` - CREATE
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -957,26 +1002,60 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ##### Response protocol
 
-| code |               message                |      content      |
-| :--: | :----------------------------------: | :---------------: |
-| XxX0 |                  OK                  | `<Created Model>` |
-| AcX1 |   Category does not belong to user   |       null        |
-| XxX4 |    Start time is before end time     |       null        |
-| XxX5 | Duration has to be greater than zero |       null        |
+| code |            message            |      content      |
+| :--: | :---------------------------: | :---------------: |
+| XxX0 |              OK               | `<Created Model>` |
+| HeX1 | Habit does not belong to user |       null        |
 
 ##### Sample request
 
 ```http
+POST /api/habit-events/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
+Content-Type: application/json
+Content-Length: 194
 
+{
+   "id": 7,
+   "habit": {
+       "id": 2
+    },
+    "date": "2021-11-25",
+	"comment": "Legs day",
+	"value": 1
+}
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 10,
+        "habit": {
+            "id": 2,
+            "name": "Work-ouit",
+            "color": "#fdefce",
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        },
+        "date": "2021-11-25",
+        "comment": "Legs day",
+        "value": 1
+    }
+}
 ```
 
-#### `api/models/{id}` - READ
+#### `api/habit-events/{id}` - READ
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -992,16 +1071,40 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/habit-events/9 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 9,
+        "habit": {
+            "id": 2,
+            "name": "Work-ouit",
+            "color": "#fdefce",
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        },
+        "date": "2021-11-25",
+        "comment": "Push day",
+        "value": 1
+    }
+}
 ```
 
-#### `api/models/{id}` - UPDATE
+#### `api/habit-events/{id}` - UPDATE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -1012,24 +1115,58 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 | code |                 message                 |      content      |
 | :--: | :-------------------------------------: | :---------------: |
 | XxX0 |                   OK                    | `<Updated model>` |
-| AcX1 |    Category does not belong to user     |       null        |
-| XxX4 |      Start time is before end time      |       null        |
-| XxX5 |  Duration has to be greater than zero   |       null        |
+| HeX1 |      Habit does not belong to user      |       null        |
 | XxX2 | Object with given id not found for user |       null        |
 
 ##### Sample request
 
 ```http
+PUT /api/habit-events/9 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
+Content-Type: application/json
+Content-Length: 126
 
+{
+    "id": 7,
+    "habit": {
+    "id": 2
+    },
+    "date": "2021-11-26",
+    "comment": "Legs day",
+    "value": 1
+}
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 9,
+        "habit": {
+            "id": 2,
+            "name": "Work-out",
+            "color": "#fdefce",
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        },
+        "date": "2021-11-26",
+        "comment": "Legs day",
+        "value": 1
+    }
+}
 ```
 
-#### `api/models/{id}` - DELETE
+#### `api/habit-events/{id}` - DELETE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
@@ -1045,16 +1182,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+DELETE /api/habit-events/9 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": null
+}
 ```
 
-### Model
+### Schedules
 
 #### `api/models/` - LIST
 
