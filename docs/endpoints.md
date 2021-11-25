@@ -17,35 +17,35 @@ This way we have 27 endpoints. 2 for login and registration, and 5x5 for each mo
 ### List of endpoints
 
 
-| Path                    | HTTP method |         Action          |
-| ----------------------- | :---------: | :---------------------: |
-| `api/register`          |    POST     |    register new user    |
-| `api/login`             |    POST     | login user (return JWT) |
-| `api/categories`        |     GET     |     list categories     |
-| `api/categories`        |    POST     |     create category     |
-| `api/categories/{id}`   |     GET     |      read category      |
-| `api/categories/{id}`   |     PUT     |     update category     |
-| `api/categories/{id}`   |   DELETE    |     delete category     |
-| `api/activities`        |     GET     |     list activities     |
-| `api/activities`        |    POST     |     create activity     |
-| `api/activities/{id}`   |     GET     |      read activity      |
-| `api/activities/{id}`   |     PUT     |     update activity     |
-| `api/activities/{id}`   |   DELETE    |     delete activity     |
-| `api/schedules`         |     GET     |     list schedules      |
-| `api/schedules`         |    POST     |     create schedule     |
-| `api/schedules/{id}`    |     GET     |      read schedule      |
-| `api/schedules/{id}`    |     PUT     |     update schedule     |
-| `api/schedules/{id}`    |   DELETE    |     delete schedule     |
-| `api/habits`            |     GET     |       list habits       |
-| `api/habits`            |    POST     |      create habit       |
-| `api/habits/{id}`       |     GET     |       read habit        |
-| `api/habits/{id}`       |     PUT     |      update habit       |
-| `api/habits/{id}`       |   DELETE    |      delete habit       |
-| `api/habit-events`      |     GET     |    list habit-events    |
-| `api/habit-events`      |    POST     |   create habit-event    |
-| `api/habit-events/{id}` |     GET     |    read habit-event     |
-| `api/habit-events/{id}` |     PUT     |   update habit-event    |
-| `api/habit-events/{id}` |   DELETE    |   delete habit-event    |
+| Path                    | HTTP method |         Action          | Docs                                                    |
+| ----------------------- | :---------: | :---------------------: | ------------------------------------------------------- |
+| `api/register`          |    POST     |    register new user    | [register](#api/register)                               |
+| `api/login`             |    POST     | login user (return JWT) | [login](#api/login)                                     |
+| `api/categories`        |     GET     |     list categories     | [categories - list](#api/categories/---list)            |
+| `api/categories`        |    POST     |     create category     | [categories - create](#api/categories/---create)        |
+| `api/categories/{id}`   |     GET     |      read category      | [categories - read](#api/categories/{id}---read)        |
+| `api/categories/{id}`   |     PUT     |     update category     | [categories - update](#api/categories/{id}---update)    |
+| `api/categories/{id}`   |   DELETE    |     delete category     | [categories - delete](##api/categories/{id}---delete)   |
+| `api/activities`        |     GET     |     list activities     | [activities- list](#api/activities/---list)             |
+| `api/activities`        |    POST     |     create activity     | [activities- create](#api/activities/---create)         |
+| `api/activities/{id}`   |     GET     |      read activity      | [activities- read](#api/activities/{id}---read)         |
+| `api/activities/{id}`   |     PUT     |     update activity     | [activities- update](#api/activities/{id}---update)     |
+| `api/activities/{id}`   |   DELETE    |     delete activity     | [activities- delete](#api/activities/{id}---delete)     |
+| `api/schedules`         |     GET     |     list schedules      | [schedules- list](#api/schedules---list)                |
+| `api/schedules`         |    POST     |     create schedule     | [schedules- create](#api/schedules---create)            |
+| `api/schedules/{id}`    |     GET     |      read schedule      | [schedules- read](#api/schedules{id}---read)            |
+| `api/schedules/{id}`    |     PUT     |     update schedule     | [schedules- update](#api/schedules/{id}---update)       |
+| `api/schedules/{id}`    |   DELETE    |     delete schedule     | [schedules- delete](#api/schedules/{id}---delete)       |
+| `api/habits`            |     GET     |       list habits       | [habits- list](#api/habits---list)                      |
+| `api/habits`            |    POST     |      create habit       | [habits- create](#api/habits---create)                  |
+| `api/habits/{id}`       |     GET     |       read habit        | [habits- read](#api/habits{id}---read)                  |
+| `api/habits/{id}`       |     PUT     |      update habit       | [habits- update](#api/habits/{id}---update)             |
+| `api/habits/{id}`       |   DELETE    |      delete habit       | [habits- delete](#api/habits{id}---delete)              |
+| `api/habit-events`      |     GET     |    list habit-events    | [habit-events- list](#api/habit-events---list)          |
+| `api/habit-events`      |    POST     |   create habit-event    | [habit-events- create](#api/habit-events---create)      |
+| `api/habit-events/{id}` |     GET     |    read habit-event     | [habit-events- read](#api/habit-events/{id}---read)     |
+| `api/habit-events/{id}` |     PUT     |   update habit-event    | [habit-events- update](#api/habit-events/{id}---update) |
+| `api/habit-events/{id}` |   DELETE    |   delete habit-event    | [habit-events- delete](#api/habit-events/{id}---delete) |
 
 ## Detailed Documentation
 
@@ -59,7 +59,7 @@ Format of each endpoint documentation:
 - Request Body - Application object that will be mapped from JSON body
 - Happy path - What will happen in happy path scenario
 
-This documentation only describes responses where HTTP response status code is `200 OK`.
+This documentation only describes responses where HTTP response status code is `200 OK`. And sample responses present the [happy paths](https://en.wikipedia.org/wiki/Happy_path#:~:text=In%20the%20context%20of%20software,no%20exceptional%20or%20error%20conditions.&text=Happy%20path%20test%20is%20a,and%20produces%20an%20expected%20output.)
 
 ### Users
 
@@ -1199,7 +1199,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 
 ### Schedules
 
-#### `api/models/` - LIST
+#### `api/schedules/` - LIST
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |             Happy path              |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :---------------------------------: |
@@ -1215,16 +1215,53 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/schedules/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": [
+        {
+            "id": 1,
+            "name": "Leave for a train",
+            "startTime": "2021-11-25T23:38:55",
+            "endTime": "2021-11-25T23:38:55",
+            "duration": 10,
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Learn Confluence",
+            "startTime": "2021-11-25T20:39:27",
+            "endTime": "2021-11-25T22:39:27",
+            "duration": 10,
+            "user": {
+                "id": 2,
+                "username": "VitaminBoy",
+                "password": "",
+                "firstName": "Casimir",
+                "lastName": "Funk",
+                "email": "k.funk@biopoczta.pl"
+            }
+        }
+    ]
+}
 ```
 
-#### `api/models/` - CREATE
+#### `api/schedules/` - CREATE
 
 | HTTP Method |    Value     | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :----------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -1235,23 +1272,53 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 | code |               message                |      content      |
 | :--: | :----------------------------------: | :---------------: |
 | XxX0 |                  OK                  | `<Created Model>` |
-| AcX1 |   Category does not belong to user   |       null        |
 | XxX4 |    Start time is before end time     |       null        |
 | XxX5 | Duration has to be greater than zero |       null        |
 
 ##### Sample request
 
 ```http
+POST /api/schedules/ HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
+Content-Type: application/json
+Content-Length: 171
 
+{
+    "id": 1,
+    "name": "Leave for a train",
+    "startTime": "2021-11-25T23:38:55",
+    "endTime": "2021-11-25T23:38:55",
+    "duration": 10,
+    "user": null
+}
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 3,
+        "name": "Leave for a train",
+        "startTime": "2021-11-25T23:38:55",
+        "endTime": "2021-11-25T23:38:55",
+        "duration": 10,
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
-#### `api/models/{id}` - READ
+#### `api/schedules/{id}` - READ
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                      Happy path                      |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :--------------------------------------------------: |
@@ -1267,16 +1334,36 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+GET /api/schedules/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Learn Confluence",
+        "startTime": "2021-11-25T23:39:27",
+        "endTime": "2021-11-25T23:39:27",
+        "duration": 10,
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
-#### `api/models/{id}` - UPDATE
+#### `api/schedules/{id}` - UPDATE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                          Happy path                          |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :----------------------------------------------------------: |
@@ -1287,7 +1374,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 | code |                 message                 |      content      |
 | :--: | :-------------------------------------: | :---------------: |
 | XxX0 |                   OK                    | `<Updated model>` |
-| AcX1 |    Category does not belong to user     |       null        |
 | XxX4 |      Start time is before end time      |       null        |
 | XxX5 |  Duration has to be greater than zero   |       null        |
 | XxX2 | Object with given id not found for user |       null        |
@@ -1295,16 +1381,46 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
+PUT /api/schedules/2 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
+Content-Type: application/json
+Content-Length: 195
 
+{
+    "id": 2,
+    "name": "Learn Confluence and Enterprise Atchitect",
+    "startTime": "2021-11-25T23:39:27",
+    "endTime": "2021-11-25T23:39:27",
+    "duration": 10,
+    "u
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": {
+        "id": 2,
+        "name": "Learn Confluence and Enterprise Atchitect",
+        "startTime": "2021-11-25T23:39:27",
+        "endTime": "2021-11-25T23:39:27",
+        "duration": 10,
+        "user": {
+            "id": 2,
+            "username": "VitaminBoy",
+            "password": "$2a$10$z5N01GRC/5Jb6eGWD..aLeY4L1hIs87mnF71pBwpNKj4vOMzWxW.a",
+            "firstName": "Casimir",
+            "lastName": "Funk",
+            "email": "k.funk@biopoczta.pl"
+        }
+    }
+}
 ```
 
-#### `api/models/{id}` - DELETE
+#### `api/schedules/{id}` - DELETE
 
 | HTTP Method |       Value       | Consumes | Produces | Path Variables | Request Body |                Happy path                 |
 | :---------: | :---------------: | :------: | :------: | :------------: | :----------: | :---------------------------------------: |
@@ -1320,13 +1436,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzN
 ##### Sample request
 
 ```http
-
+DELETE /api/schedules/1 HTTP/1.1
+Host: 127.0.0.1:8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mzc4NzM4MjUsImV4cCI6MTYzNzg4MzM0NywidXNlcklkIjoyLCJ1c2VybmFtZSI6IlZpdGFtaW5Cb3kifQ.F2s8RdmAPCjKfolk3BMmEmAbDym2HpgS5aJI89Tvj3k
 ```
 
 ##### Sample response
 
 ```json
-
+{
+    "code": "XxX0",
+    "message": "OK",
+    "content": null
+}
 ```
 
 
