@@ -1,10 +1,13 @@
 package pl.gawor.tayckner.taycknerbackend.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitEventModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.HabitEventFacade;
+import pl.gawor.tayckner.taycknerbackend.web.response.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -18,6 +21,9 @@ public class HabitEventController {
 
     private final HabitEventFacade facade;
 
+    private final Logger logger = LoggerFactory.getLogger(HabitEventController.class);
+
+
     public HabitEventController(HabitEventFacade facade) {
         this.facade = facade;
     }
@@ -29,7 +35,10 @@ public class HabitEventController {
     )
     public ResponseEntity<Map<String, Object>> list(HttpServletRequest request) {
         int userId = (int) request.getAttribute("userId");
-        return facade.list(userId).getResponseEntity();
+        logger.info("HabitEventController :: list(userId = {})", userId);
+        Response response = facade.list(userId);
+        logger.info("HabitEventController :: list(userId = {}) = {}", userId, response);
+        return response.getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
@@ -40,7 +49,10 @@ public class HabitEventController {
     )
     public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody HabitEventModel model) {
         int userId = (int) request.getAttribute("userId");
-        return facade.create(model, userId).getResponseEntity();
+        logger.info("HabitEventController :: create(userId = {}, model = {})", userId, model);
+        Response response = facade.create(model, userId);
+        logger.info("HabitEventController :: create(userId = {}, model = {}) = {}", userId, model, response);
+        return response.getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- R E A D
@@ -50,7 +62,10 @@ public class HabitEventController {
     )
     public ResponseEntity<Map<String, Object>> read(HttpServletRequest request, @PathVariable(name = "id") long id) {
         int userId = (int) request.getAttribute("userId");
-        return facade.read(id, userId).getResponseEntity();
+        logger.info("HabitEventController :: read(userId = {}, id = {})", userId, id);
+        Response response = facade.read(id, userId);
+        logger.info("HabitEventController :: read(userId = {}, id = {}) = {}", userId, id, response);
+        return response.getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- U P D A T E
@@ -61,7 +76,10 @@ public class HabitEventController {
     )
     public ResponseEntity<Map<String, Object>> update(HttpServletRequest request, @PathVariable(name = "id") long id, @RequestBody HabitEventModel model) {
         int userId = (int) request.getAttribute("userId");
-        return facade.update(id, model, userId).getResponseEntity();
+        logger.info("HabitEventController :: update(userId = {}, id = {}, model = {})", userId, id, model);
+        Response response = facade.update(id, model, userId);
+        logger.info("HabitEventController :: update(userId = {}, id = {}, model = {}) = {}", userId, id, model, response);
+        return response.getResponseEntity();
     }
 
     // -------------------------------------------------------------------------------------- D E L E T E
@@ -71,6 +89,9 @@ public class HabitEventController {
     )
     public ResponseEntity<Map<String, Object>> delete(HttpServletRequest request, @PathVariable(name = "id") long id) {
         int userId = (int) request.getAttribute("userId");
-        return facade.delete(id, userId).getResponseEntity();
+        logger.info("HabitEventController :: update(userId = {}, id = {})", userId, id);
+        Response response = facade.delete(id, userId);
+        logger.info("HabitEventController :: update(userId = {}, id = {}) = {}}", userId, id, response);
+        return response.getResponseEntity();
     }
 }
