@@ -120,6 +120,11 @@ public class HabitFacade {
         UserModel user = userService.read(userId);
 
         try {
+            // validate user and id
+            if (!service.existsByIdAndUser(id, user)) {
+                responseStatus = ResponseStatus.XxX2;
+                throw new ValidationException();
+            }
             // validate name
             if (service.existByName(model.getName(), user)) {
                 if(service.findByName(model.getName(), user).getId() != id){
@@ -130,11 +135,6 @@ public class HabitFacade {
             // validate color
             if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
                 responseStatus = ResponseStatus.XxX3;
-                throw new ValidationException();
-            }
-            // validate user and id
-            if (!service.existsByIdAndUser(id, user)) {
-                responseStatus = ResponseStatus.XxX2;
                 throw new ValidationException();
             }
         } catch (ValidationException e) {

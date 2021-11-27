@@ -138,7 +138,7 @@ public class HabitEventFacade {
                 responseStatus = ResponseStatus.HeX1;
                 throw new ValidationException();
             }
-            // assign category from db based on model's category id
+            // assign habit from db based on model's habit id
             model.setHabit(habitService.read(model.getHabit().getId()));
         } catch (ValidationException e) {
             return builder
