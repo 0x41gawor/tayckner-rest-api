@@ -119,8 +119,10 @@ public class CategoryFacade {
         try {
             // validate name
             if (service.existByName(model.getName(), user)) {
-                responseStatus = ResponseStatus.CaX1;
-                throw new ValidationException();
+                if(service.findByName(model.getName(), user).getId() != id){
+                    responseStatus = ResponseStatus.CaX1;
+                    throw new ValidationException();
+                }
             }
             // validate color
             if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {

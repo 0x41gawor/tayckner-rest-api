@@ -122,8 +122,10 @@ public class HabitFacade {
         try {
             // validate name
             if (service.existByName(model.getName(), user)) {
-                responseStatus = ResponseStatus.HaX1;
-                throw new ValidationException();
+                if(service.findByName(model.getName(), user).getId() != id){
+                    responseStatus = ResponseStatus.HaX1;
+                    throw new ValidationException();
+                }
             }
             // validate color
             if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
