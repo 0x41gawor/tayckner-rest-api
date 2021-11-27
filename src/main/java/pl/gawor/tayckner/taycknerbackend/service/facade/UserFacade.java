@@ -1,5 +1,7 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
@@ -18,6 +20,9 @@ public class UserFacade {
     private final UserService service;
     private final JWTGenerator jwtGenerator;
 
+    private final Logger logger = LoggerFactory.getLogger(UserFacade.class);
+
+
     public UserFacade(UserService service, JWTGenerator jwtGenerator) {
         this.service = service;
         this.jwtGenerator = jwtGenerator;
@@ -25,6 +30,8 @@ public class UserFacade {
 
     // -------------------------------------------------------------------------------------- R E G I S T E R
     public Response register(UserModel model) {
+        logger.info("UserFacade :: register(model = {})", model);
+
         ResponseStatus responseStatus = ResponseStatus.R0;
 
         // validation (as for now, only these fields are validated, later more conditions will be added
@@ -47,9 +54,12 @@ public class UserFacade {
         } // if we catch any validation error return;
         catch (ValidationException e) {
             Response.Builder builder = new Response.Builder();
-            return builder
+            Response response = builder
+                    .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("UserFacade :: register(model = {}) = {}", model, response);
+            return response;
         }
         String hashedPassword = BCrypt.hashpw(model.getPassword(), BCrypt.gensalt(10));
         model.setPassword(hashedPassword);
@@ -57,13 +67,17 @@ public class UserFacade {
         service.create(model);
 
         Response.Builder builder = new Response.Builder();
-        return builder
+        Response response = builder
+                .clear()
                 .setResponseStatus(responseStatus)
                 .build();
+        logger.info("UserFacade :: register(model = {}) = {}", model, response);
+        return response;
     }
 
     // ---------------------------------------------------------------------------------------- L O G I N
     public Response login(String username, String password) {
+        logger.info("UserFacade :: register(username = {}, password = {})", username, password);
         ResponseStatus responseStatus = ResponseStatus.L0;
 
         try {
@@ -78,17 +92,23 @@ public class UserFacade {
             }
         } catch (ValidationException e) {
             Response.Builder builder = new Response.Builder();
-            return builder
+            Response response = builder
+                    .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("UserFacade :: register(username = {}, password = {}) = {}", username, password, response);
+            return response;
         }
         UserModel user = service.findByUsername(username);
         String jwt = jwtGenerator.generateJWT(user);
 
         Response.Builder builder = new Response.Builder();
-        return builder
+        Response response = builder
+                .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(jwt)
                 .build();
+        logger.info("UserFacade :: register(username = {}, password = {}) = {}", username, password, response);
+        return response;
     }
 }
