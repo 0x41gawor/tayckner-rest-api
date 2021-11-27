@@ -130,7 +130,7 @@ public class CategoryFacade {
                 }
             }
             // validate color
-            if (!Color.validate(model.getColor()) || model.getColor().length() > 7) {
+            if (!Color.validate(model.getColor())) {
                 responseStatus = ResponseStatus.XxX3;
                 throw new ValidationException();
             }
