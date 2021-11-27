@@ -118,4 +118,15 @@ public class CategoryService implements CRUDService<CategoryModel> {
     public boolean existsByIdAndUser(long id, UserModel user) {
         return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
     }
+    // ---------------------------------------------------------------------------- F I N D   B Y   N A M E
+
+    /**
+     * Return model of category with given name
+     *
+     * @param name name of category to search for
+     * @return model of category with given name
+     */
+    public CategoryEntity findByName(String name) {
+        return repository.findCategoryEntityByName(name);
+    }
 }

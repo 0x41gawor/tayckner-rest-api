@@ -118,4 +118,15 @@ public class HabitService implements CRUDService<HabitModel> {
     public boolean existsByIdAndUser(long id, UserModel user) {
         return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
     }
+    // ---------------------------------------------------------------------------- F I N D   B Y   N A M E
+
+    /**
+     * Return model of habit with given name
+     *
+     * @param name name of habit to search for
+     * @return model of habit with given name
+     */
+    public HabitEntity findByName(String name) {
+        return repository.findHabitEntityByName(name);
+    }
 }
