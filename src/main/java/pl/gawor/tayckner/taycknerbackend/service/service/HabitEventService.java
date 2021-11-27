@@ -2,8 +2,7 @@ package pl.gawor.tayckner.taycknerbackend.service.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.gawor.tayckner.taycknerbackend.core.model.HabitEventModel;
-import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.*;
 import pl.gawor.tayckner.taycknerbackend.repository.HabitEventRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEventEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.HabitEventMapper;
@@ -22,13 +21,16 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
     private final HabitEventRepository repository;
     private final HabitEventMapper mapper;
 
+    private final HabitService habitService;
+
     @Autowired
-    public HabitEventService(HabitEventRepository repository, HabitEventMapper mapper) {
+    public HabitEventService(HabitEventRepository repository, HabitEventMapper mapper, HabitService habitService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.habitService = habitService;
     }
 
-    // -------------------------------------------------------------------------------------- L I S T
+    // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<HabitEventModel> list() {
         List<HabitEventEntity> entities = repository.findAll();
@@ -47,7 +49,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         return mapper.mapToModel(repository.save(entity));
     }
 
-    // -------------------------------------------------------------------------------------- R E A D
+    // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public HabitEventModel read(long id) {
         Optional<HabitEventEntity> optional = repository.findById(id);
@@ -59,6 +61,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
     @Override
     public HabitEventModel update(long id, HabitEventModel model) {
         HabitEventEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 
@@ -71,16 +74,16 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         }
         return false;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   H A B I T
+    // ------------------------------------------------------------------------ L I S T   B Y   H A B I T
 
     /**
      * List by habit.
      * <p>
-     * Returns list of model which property Habit is equal to given in param.
+     * Returns list of model which property Habit is equal to one given in param.
      * </p>
      *
      * @param habit habit model by which search is done
-     * @return List of all models in database, that has given user
+     * @return List of all models in database, that has given habit
      */
     public List<HabitEventModel> list(HabitModel habit) {
         HabitMapper habitMapper = new HabitMapper();
@@ -90,5 +93,39 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
             models.add(mapper.mapToModel(entity));
         }
         return models;
+    }
+    // -------------------------------------------------------------------------- L I S T   B Y   U S E R
+
+    /**
+     * List by user.
+     * <p>
+     * Returns list of model which Habit's User is equal to one given in param.
+     * </p>
+     *
+     * @param user User model by which search is done
+     * @return List of all models in database, that has given user
+     */
+    public List<HabitEventModel> list(UserModel user) {
+        List<HabitModel> habits = habitService.list(user);
+        List<HabitEventModel> habitEvents = new ArrayList<>();
+        for (HabitModel habit : habits) {
+            for (HabitEventModel habitEvent : list(habit)) {
+                habitEvent.getHabit().getUser().setPassword("");
+                habitEvents.add(habitEvent);
+            }
+        }
+        return habitEvents;
+    }
+
+    // -------------------------------------------------------------------------- E X I S T S   B Y   I D
+
+    /**
+     * Return true if habit event with given id exists.
+     *
+     * @param id id to search for
+     * @return true if Habit Event with given id exists
+     */
+    public boolean existsById(long id) {
+        return repository.existsById(id);
     }
 }

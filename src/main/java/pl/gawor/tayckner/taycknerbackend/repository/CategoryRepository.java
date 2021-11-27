@@ -9,9 +9,14 @@ import java.util.List;
 
 /**
  * Repository class for `Category`.
- *
  */
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
     List<CategoryEntity> findCategoryEntitiesByUser(UserEntity user);
+
+    boolean existsByNameAndUser(String name, UserEntity user);
+
+    boolean existsByIdAndUser(long id, UserEntity user);
+
+    CategoryEntity findCategoryEntityByNameAndUser(String name, UserEntity user);
 }

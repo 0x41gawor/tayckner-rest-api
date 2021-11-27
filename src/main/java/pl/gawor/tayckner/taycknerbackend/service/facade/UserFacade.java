@@ -2,6 +2,7 @@ package pl.gawor.tayckner.taycknerbackend.service.facade;
 
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
+import pl.gawor.tayckner.taycknerbackend.service.facade.util.ValidationException;
 import pl.gawor.tayckner.taycknerbackend.service.service.UserService;
 import pl.gawor.tayckner.taycknerbackend.web.response.Response;
 import pl.gawor.tayckner.taycknerbackend.web.response.ResponseStatus;
@@ -60,6 +61,7 @@ public class UserFacade {
                 .setResponseStatus(responseStatus)
                 .build();
     }
+
     // ---------------------------------------------------------------------------------------- L O G I N
     public Response login(String username, String password) {
         ResponseStatus responseStatus = ResponseStatus.L0;
@@ -89,5 +91,4 @@ public class UserFacade {
                 .setContent(jwt)
                 .build();
     }
-
 }

@@ -6,6 +6,7 @@ import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.CategoryRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.CategoryEntity;
+import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.CategoryMapper;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.UserMapper;
 
@@ -21,14 +22,16 @@ public class CategoryService implements CRUDService<CategoryModel> {
 
     private final CategoryRepository repository;
     private final CategoryMapper mapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public CategoryService(CategoryRepository repository, CategoryMapper mapper) {
+    public CategoryService(CategoryRepository repository, CategoryMapper mapper, UserMapper userMapper) {
         this.repository = repository;
         this.mapper = mapper;
+        this.userMapper = userMapper;
     }
 
-    // -------------------------------------------------------------------------------------- L I S T
+    // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<CategoryModel> list() {
         List<CategoryEntity> entities = repository.findAll();
@@ -47,7 +50,7 @@ public class CategoryService implements CRUDService<CategoryModel> {
         return mapper.mapToModel(repository.save(entity));
     }
 
-    // -------------------------------------------------------------------------------------- R E A D
+    // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public CategoryModel read(long id) {
         Optional<CategoryEntity> optional = repository.findById(id);
@@ -59,6 +62,7 @@ public class CategoryService implements CRUDService<CategoryModel> {
     @Override
     public CategoryModel update(long id, CategoryModel model) {
         CategoryEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 
@@ -71,7 +75,7 @@ public class CategoryService implements CRUDService<CategoryModel> {
         }
         return false;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   U S E R
+    // -------------------------------------------------------------------------- L I S T   B Y   U S E R
 
     /**
      * List by user.
@@ -90,5 +94,41 @@ public class CategoryService implements CRUDService<CategoryModel> {
             models.add(mapper.mapToModel(entity));
         }
         return models;
+    }
+    // ---------------------------------------------------- E X I S T S   B Y   U S E R   A N D   N A M E
+
+    /**
+     * Return true if category with given name and user exists.
+     *
+     * @param name name of category to search for
+     * @param user UserModel to search for
+     * @return true if Category with given user and name exists
+     */
+    public boolean existByName(String name, UserModel user) {
+        return repository.existsByNameAndUser(name, userMapper.mapToEntity(user));
+    }
+    // --------------------------------------------------------- E X I S T S   B Y  I D   A N D   U S E R
+
+    /**
+     * Return true if category with given id and user exists.
+     *
+     * @param id   id of category to search for
+     * @param user UserModel to search for
+     * @return true if Category with given user and id exists
+     */
+    public boolean existsByIdAndUser(long id, UserModel user) {
+        return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
+    }
+    // ---------------------------------------------------------- F I N D   B Y   N A M E   A N D   U S E R
+
+    /**
+     * Return model of category with given name
+     *
+     * @param name name of category to search for
+     * @param user user to which category belongs
+     * @return model of category with given name
+     */
+    public CategoryEntity findByName(String name, UserModel user) {
+        return repository.findCategoryEntityByNameAndUser(name, userMapper.mapToEntity(user));
     }
 }

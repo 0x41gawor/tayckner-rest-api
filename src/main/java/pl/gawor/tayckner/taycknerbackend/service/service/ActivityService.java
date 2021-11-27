@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gawor.tayckner.taycknerbackend.core.model.ActivityModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
+import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.ActivityRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.ActivityEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.ActivityMapper;
@@ -22,13 +23,16 @@ public class ActivityService implements CRUDService<ActivityModel> {
     private final ActivityRepository repository;
     private final ActivityMapper mapper;
 
+    private final CategoryService categoryService;
+
     @Autowired
-    public ActivityService(ActivityRepository repository, ActivityMapper mapper) {
+    public ActivityService(ActivityRepository repository, ActivityMapper mapper, CategoryService categoryService, UserService userService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.categoryService = categoryService;
     }
 
-    // -------------------------------------------------------------------------------------- L I S T
+    // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<ActivityModel> list() {
         List<ActivityEntity> entities = repository.findAll();
@@ -47,7 +51,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         return mapper.mapToModel(repository.save(entity));
     }
 
-    // -------------------------------------------------------------------------------------- R E A D
+    // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public ActivityModel read(long id) {
         Optional<ActivityEntity> optional = repository.findById(id);
@@ -59,6 +63,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
     @Override
     public ActivityModel update(long id, ActivityModel model) {
         ActivityEntity entity = mapper.mapToEntity(model);
+        entity.setId(id);
         return mapper.mapToModel(repository.save(entity));
     }
 
@@ -71,7 +76,7 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return false;
     }
-    // -------------------------------------------------------------------------------------- L I S T   B Y   C A T E G O R Y
+    // ------------------------------------------------------------------ L I S T   B Y   C A T E G O R Y
 
     /**
      * List by category.
@@ -91,4 +96,39 @@ public class ActivityService implements CRUDService<ActivityModel> {
         }
         return models;
     }
+
+    // -------------------------------------------------------------------------- L I S T   B Y   U S E R
+
+    /**
+     * List by user.
+     * <p>
+     * Returns list of model which Category's property User is equal to given in param.
+     * </p>
+     *
+     * @param user user model by which search is done
+     * @return List of all models in database, that has given user
+     */
+    public List<ActivityModel> list(UserModel user) {
+        List<CategoryModel> categories = categoryService.list(user);
+        List<ActivityModel> activities = new ArrayList<>();
+        for (CategoryModel category : categories) {
+            for (ActivityModel activity : list(category)) {
+                activity.getCategory().getUser().setPassword("");
+                activities.add(activity);
+            }
+        }
+        return activities;
+    }
+
+    /**
+     * Return true if activity event with given id exists.
+     *
+     * @param id id to search for
+     * @return true if Activity with given id exists
+     */
+    // -------------------------------------------------------------------------- E X I S T S   B Y   I D
+    public boolean existsById(long id) {
+        return repository.existsById(id);
+    }
+
 }
