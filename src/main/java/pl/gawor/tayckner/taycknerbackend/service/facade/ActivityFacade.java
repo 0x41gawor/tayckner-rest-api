@@ -76,7 +76,7 @@ public class ActivityFacade {
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
-            logger.info("ActivityFacade :: create(model = {}, userId = {})", model, userId);
+            logger.info("ActivityFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
             return response;
         }
 
@@ -100,7 +100,7 @@ public class ActivityFacade {
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
-            logger.info("ActivityFacade :: create(model = {}, userId = {})", model, userId);
+            logger.info("ActivityFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
             return response;
         }
 
@@ -113,7 +113,7 @@ public class ActivityFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
                 .build();
-        logger.info("ActivityFacade :: create(model = {}, userId = {})", model, userId);
+        logger.info("ActivityFacade :: create(model = {}, userId) = {})", model, userId);
         return response;
     }
 
@@ -140,7 +140,7 @@ public class ActivityFacade {
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
-            logger.info("ActivityFacade :: read(id = {}, userId = {}) = {}}", id, userId, response);
+            logger.info("ActivityFacade :: read(id = {}, userId = {}) = {}", id, userId, response);
             return response;
         }
 
@@ -151,7 +151,7 @@ public class ActivityFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
                 .build();
-        logger.info("ActivityFacade :: read(id = {}, userId = {}) = {}}", id, userId, response);
+        logger.info("ActivityFacade :: read(id = {}, userId = {}) = {}", id, userId, response);
         return response;
     }
 

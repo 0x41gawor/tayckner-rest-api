@@ -1,5 +1,7 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
@@ -23,6 +25,8 @@ public class HabitFacade {
 
     private final Response.Builder builder;
 
+    private final Logger logger = LoggerFactory.getLogger(HabitFacade.class);
+
     public HabitFacade(HabitService service, UserService userService) {
         this.service = service;
         this.userService = userService;
@@ -31,29 +35,35 @@ public class HabitFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
+        logger.info("HabitFacade :: list(userId = {})", userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<HabitModel> models = service.list(user);
 
         if (models.isEmpty()) {
             responseStatus = ResponseStatus.XxL1;
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("HabitFacade :: list(userId = {}) = {}", userId, response);
+            return response;
         }
 
         models.forEach((h) -> h.getUser().setPassword(""));
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
+        logger.info("HabitFacade :: list(userId = {}) = {}", userId,response);
+        return response;
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(HabitModel model, long userId) {
+        logger.info("HabitFacade :: create(model = {}, userId = {})", model, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
@@ -69,10 +79,12 @@ public class HabitFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("HabitFacade :: create(model = {}, userId = {}) = {}}", model, userId, response);
+            return response;
         }
 
         model.setId(0);
@@ -80,14 +92,17 @@ public class HabitFacade {
         HabitModel createdModel = service.create(model);
         createdModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
+                .clear()
                 .setResponseStatus(responseStatus)
-                .setContent(createdModel)
                 .build();
+        logger.info("HabitFacade :: create(model = {}, userId = {}) = {}}", model, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
+        logger.info("HabitFacade :: read(id = {}, userId = {})", id, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
@@ -99,23 +114,28 @@ public class HabitFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("HabitFacade :: read(id = {}, userId = {}) = {}", id, userId, response);
+            return response;
         }
 
         HabitModel readModel = service.read(id);
         readModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
                 .build();
+        logger.info("HabitFacade :: read(id = {}, userId = {}) = {}}", id, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, HabitModel model, long userId) {
+        logger.info("HabitFacade :: update(id = {}, model = {}, userId = {})", id, model, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
@@ -138,24 +158,29 @@ public class HabitFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("HabitFacade :: update(id = {}, model = {}, userId = {}) = {}", id, model, userId, response);
+            return response;
         }
         model.setUser(user);
         HabitModel updatedModel = service.update(id, model);
         updatedModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(updatedModel)
                 .build();
+        logger.info("HabitFacade :: update(id = {}, model = {}, userId = {}) = {}", id, model, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
+        logger.info("HabitFacade :: delete(id = {}, userId = {})", id, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         try {
@@ -165,19 +190,23 @@ public class HabitFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("HabitFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
+            return response;
         }
 
         if (!service.delete(id)) {
             responseStatus = ResponseStatus.XxX2;
         }
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .build();
+        logger.info("HabitFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
+        return response;
     }
 }

@@ -83,7 +83,7 @@ public class CategoryFacade {
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
-            logger.info("CategoryFacade :: create(model = {}, userId = {})", model, userId);
+            logger.info("CategoryFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
             return response;
         }
 
@@ -97,7 +97,7 @@ public class CategoryFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
                 .build();
-        logger.info("CategoryFacade :: create(model = {}, userId = {})", model, userId);
+        logger.info("CategoryFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
         return response;
     }
 
