@@ -6,6 +6,7 @@ import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.HabitRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEntity;
+import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.HabitMapper;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.UserMapper;
 
@@ -118,15 +119,16 @@ public class HabitService implements CRUDService<HabitModel> {
     public boolean existsByIdAndUser(long id, UserModel user) {
         return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
     }
-    // ---------------------------------------------------------------------------- F I N D   B Y   N A M E
+    // ---------------------------------------------------------- F I N D   B Y   N A M E   A N D   U S E R
 
     /**
      * Return model of habit with given name
      *
      * @param name name of habit to search for
+     * @param user user to which habit belongs
      * @return model of habit with given name
      */
-    public HabitEntity findByName(String name) {
-        return repository.findHabitEntityByName(name);
+    public HabitEntity findByName(String name, UserModel user) {
+        return repository.findHabitEntityByNameAndUser(name, userMapper.mapToEntity(user));
     }
 }

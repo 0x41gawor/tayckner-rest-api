@@ -6,6 +6,7 @@ import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.CategoryRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.CategoryEntity;
+import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.CategoryMapper;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.UserMapper;
 
@@ -118,15 +119,16 @@ public class CategoryService implements CRUDService<CategoryModel> {
     public boolean existsByIdAndUser(long id, UserModel user) {
         return repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
     }
-    // ---------------------------------------------------------------------------- F I N D   B Y   N A M E
+    // ---------------------------------------------------------- F I N D   B Y   N A M E   A N D   U S E R
 
     /**
      * Return model of category with given name
      *
      * @param name name of category to search for
+     * @param user user to which category belongs
      * @return model of category with given name
      */
-    public CategoryEntity findByName(String name) {
-        return repository.findCategoryEntityByName(name);
+    public CategoryEntity findByName(String name, UserModel user) {
+        return repository.findCategoryEntityByNameAndUser(name, userMapper.mapToEntity(user));
     }
 }
