@@ -6,7 +6,6 @@ import pl.gawor.tayckner.taycknerbackend.core.model.HabitModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
 import pl.gawor.tayckner.taycknerbackend.repository.HabitRepository;
 import pl.gawor.tayckner.taycknerbackend.repository.entity.HabitEntity;
-import pl.gawor.tayckner.taycknerbackend.repository.entity.UserEntity;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.HabitMapper;
 import pl.gawor.tayckner.taycknerbackend.service.service.mapper.UserMapper;
 
