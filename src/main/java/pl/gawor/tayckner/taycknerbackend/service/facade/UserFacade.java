@@ -77,7 +77,7 @@ public class UserFacade {
 
     // ---------------------------------------------------------------------------------------- L O G I N
     public Response login(String username, String password) {
-        logger.info("UserFacade :: register(username = {}, password = {})", username, password);
+        logger.info("UserFacade :: login(username = {}, password = {})", username, password);
         ResponseStatus responseStatus = ResponseStatus.L0;
 
         try {
@@ -96,7 +96,7 @@ public class UserFacade {
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
-            logger.info("UserFacade :: register(username = {}, password = {}) = {}", username, password, response);
+            logger.info("UserFacade :: login(username = {}, password = {}) = {}", username, password, response);
             return response;
         }
         UserModel user = service.findByUsername(username);
@@ -108,7 +108,7 @@ public class UserFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(jwt)
                 .build();
-        logger.info("UserFacade :: register(username = {}, password = {}) = {}", username, password, response);
+        logger.info("UserFacade :: login(username = {}, password = {}) = {}", username, password, response);
         return response;
     }
 }

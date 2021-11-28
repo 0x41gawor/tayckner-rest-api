@@ -49,9 +49,9 @@ public class ScheduleController {
     )
     public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody ScheduleModel model) {
         int userId = (int) request.getAttribute("userId");
-        logger.info("ScheduleController :: list(userId = {})", userId);
-        Response response = facade.list(userId);
-        logger.info("ScheduleController :: list(userId = {}) = {}", userId, response);
+        logger.info("ScheduleController :: create(userId = {})", userId);
+        Response response = facade.create(model, userId);
+        logger.info("ScheduleController :: create(userId = {}) = {}", userId, response);
         return response.getResponseEntity();
     }
 
@@ -89,9 +89,9 @@ public class ScheduleController {
     )
     public ResponseEntity<Map<String, Object>> delete(HttpServletRequest request, @PathVariable(name = "id") long id) {
         int userId = (int) request.getAttribute("userId");
-        logger.info("ScheduleController :: update(userId = {}, id = {})", userId, id);
+        logger.info("ScheduleController :: delete(userId = {}, id = {})", userId, id);
         Response response = facade.delete(id, userId);
-        logger.info("ScheduleController :: update(userId = {}, id = {}) = {}}", userId, id, response);
+        logger.info("ScheduleController :: delete(userId = {}, id = {}) = {}}", userId, id, response);
         return response.getResponseEntity();
     }
 

@@ -49,9 +49,9 @@ public class CategoryController {
     )
     public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody CategoryModel model) {
         int userId = (int) request.getAttribute("userId");
-        logger.info("CategoryController :: list(userId = {})", userId);
+        logger.info("CategoryController :: create(userId = {})", userId);
         Response response = facade.list(userId);
-        logger.info("CategoryController :: list(userId = {}) = {}", userId, response);
+        logger.info("CategoryController :: create(userId = {}) = {}", userId, response);
         return response.getResponseEntity();
     }
 
@@ -89,9 +89,9 @@ public class CategoryController {
     )
     public ResponseEntity<Map<String, Object>> delete(HttpServletRequest request, @PathVariable(name = "id") long id) {
         int userId = (int) request.getAttribute("userId");
-        logger.info("CategoryController :: update(userId = {}, id = {})", userId, id);
+        logger.info("CategoryController :: delete(userId = {}, id = {})", userId, id);
         Response response = facade.delete(id, userId);
-        logger.info("CategoryController :: update(userId = {}, id = {}) = {}}", userId, id, response);
+        logger.info("CategoryController :: delete(userId = {}, id = {}) = {}}", userId, id, response);
         return response.getResponseEntity();
     }
 

@@ -89,9 +89,9 @@ public class HabitEventController {
     )
     public ResponseEntity<Map<String, Object>> delete(HttpServletRequest request, @PathVariable(name = "id") long id) {
         int userId = (int) request.getAttribute("userId");
-        logger.info("HabitEventController :: update(userId = {}, id = {})", userId, id);
+        logger.info("HabitEventController :: delete(userId = {}, id = {})", userId, id);
         Response response = facade.delete(id, userId);
-        logger.info("HabitEventController :: update(userId = {}, id = {}) = {}}", userId, id, response);
+        logger.info("HabitEventController :: delete(userId = {}, id = {}) = {}}", userId, id, response);
         return response.getResponseEntity();
     }
 }

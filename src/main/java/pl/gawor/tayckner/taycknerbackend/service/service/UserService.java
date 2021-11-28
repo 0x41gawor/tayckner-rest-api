@@ -109,9 +109,9 @@ public class UserService implements CRUDService<UserModel> {
      */
     // ---------------------------------------------------------------------E X I S T S   B Y   E M A I L
     public boolean existsByEmail(String email) {
-        logger.info("UserService :: existsByUsername(email = {})", email);
+        logger.info("UserService :: existsByEmail(email = {})", email);
         boolean result =  repository.existsByEmail(email);
-        logger.info("UserService :: existsByUsername(email = {}) = {}", email, result);
+        logger.info("UserService :: existsByEmail(email = {}) = {}", email, result);
         return result;
     }
 
