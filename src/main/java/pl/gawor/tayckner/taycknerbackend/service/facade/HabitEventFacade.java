@@ -59,7 +59,7 @@ public class HabitEventFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
-        logger.info("HabitEventFacade :: list(userId = {}) = {}", userId,response);
+        logger.info("HabitEventFacade :: list(userId = {}) = {}", userId, response);
         return response;
     }
 
@@ -212,7 +212,7 @@ public class HabitEventFacade {
         Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
-                .build();   
+                .build();
         logger.info("HabitEventFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
         return response;
     }

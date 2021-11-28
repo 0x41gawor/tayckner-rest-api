@@ -155,7 +155,7 @@ public class HabitService implements CRUDService<HabitModel> {
      */
     public HabitEntity findByName(String name, UserModel user) {
         logger.info("HabitService :: findByName(name = {}, user = {})", name, user);
-        HabitEntity foundModel =  repository.findHabitEntityByNameAndUser(name, userMapper.mapToEntity(user));
+        HabitEntity foundModel = repository.findHabitEntityByNameAndUser(name, userMapper.mapToEntity(user));
         logger.info("HabitService :: findByName(name = {}, user = {}) = {}", name, user, foundModel);
         return foundModel;
     }

@@ -57,7 +57,7 @@ public class HabitFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
-        logger.info("HabitFacade :: list(userId = {}) = {}", userId,response);
+        logger.info("HabitFacade :: list(userId = {}) = {}", userId, response);
         return response;
     }
 
@@ -147,7 +147,7 @@ public class HabitFacade {
             }
             // validate name
             if (service.existByName(model.getName(), user)) {
-                if(service.findByName(model.getName(), user).getId() != id){
+                if (service.findByName(model.getName(), user).getId() != id) {
                     responseStatus = ResponseStatus.HaX1;
                     throw new ValidationException();
                 }

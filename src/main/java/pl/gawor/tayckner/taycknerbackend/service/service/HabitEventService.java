@@ -64,7 +64,7 @@ public class HabitEventService implements CRUDService<HabitEventModel> {
         logger.info("HabitEventService :: read(id = {})", id);
         Optional<HabitEventEntity> optional = repository.findById(id);
         HabitEventEntity entity = optional.orElse(null);
-        HabitEventModel readModel =  mapper.mapToModel(entity);
+        HabitEventModel readModel = mapper.mapToModel(entity);
         logger.info("HabitEventService :: read(id = {}) = {}", id, readModel);
         return readModel;
     }

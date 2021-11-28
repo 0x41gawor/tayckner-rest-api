@@ -57,7 +57,7 @@ public class ScheduleFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
-        logger.info("ScheduleFacade :: list(userId = {}) = {}", userId,response);
+        logger.info("ScheduleFacade :: list(userId = {}) = {}", userId, response);
         return response;
     }
 

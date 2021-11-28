@@ -60,7 +60,7 @@ public class UserService implements CRUDService<UserModel> {
         logger.info("UserService :: read(id = {})", id);
         Optional<UserEntity> optional = repository.findById(id);
         UserEntity entity = optional.orElse(null);
-        UserModel readModel =  mapper.mapToModel(entity);
+        UserModel readModel = mapper.mapToModel(entity);
         logger.info("UserService :: read(id = {}) = {}", id, readModel);
         return readModel;
     }
@@ -71,7 +71,7 @@ public class UserService implements CRUDService<UserModel> {
         logger.info("UserService :: update(id = {}, model = {})", id, model);
         UserEntity entity = mapper.mapToEntity(model);
         entity.setId(id);
-        UserModel updatedModel =  mapper.mapToModel(repository.save(entity));
+        UserModel updatedModel = mapper.mapToModel(repository.save(entity));
         logger.info("UserService :: update(id = {}, model = {}) = {}", id, model, updatedModel);
         return updatedModel;
     }
@@ -91,39 +91,42 @@ public class UserService implements CRUDService<UserModel> {
 
     /**
      * Method returns true if user with given username exists.
-     * @param username  username for search
+     *
+     * @param username username for search
      * @return true if UserModel with given username is found
      */
     // ---------------------------------------------------------------E X I S T S   B Y   U S E R N A M E
     public boolean existsByUsername(String username) {
         logger.info("UserService :: existsByUsername(username = {})", username);
-        boolean result =  repository.existsByUsername(username);
+        boolean result = repository.existsByUsername(username);
         logger.info("UserService :: existsByUsername(username = {}) = {}", username, result);
         return result;
     }
 
     /**
      * Method returns true if user with given email exists.
-     * @param email  email for search
+     *
+     * @param email email for search
      * @return true if UserModel with given email is found
      */
     // ---------------------------------------------------------------------E X I S T S   B Y   E M A I L
     public boolean existsByEmail(String email) {
         logger.info("UserService :: existsByEmail(email = {})", email);
-        boolean result =  repository.existsByEmail(email);
+        boolean result = repository.existsByEmail(email);
         logger.info("UserService :: existsByEmail(email = {}) = {}", email, result);
         return result;
     }
 
     /**
      * Method returns User with given username.
+     *
      * @param username username for search
      * @return UserModel with given username or null if not found
      */
     // -------------------------------------------------------------------F I N D   B Y   U S E R N A M E
     public UserModel findByUsername(String username) {
         logger.info("UserService :: findByUsername(username = {})", username);
-        UserModel foundModel =  mapper.mapToModel(repository.findUserEntityByUsername(username));
+        UserModel foundModel = mapper.mapToModel(repository.findUserEntityByUsername(username));
         logger.info("UserService :: findByUsername(username = {}) = {}", username, foundModel);
         return foundModel;
     }

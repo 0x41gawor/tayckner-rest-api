@@ -57,7 +57,7 @@ public class CategoryFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
-        logger.info("CategoryFacade :: list(userId = {}) = {}", userId,response);
+        logger.info("CategoryFacade :: list(userId = {}) = {}", userId, response);
         return response;
     }
 
@@ -145,7 +145,7 @@ public class CategoryFacade {
             }
             // validate name
             if (service.existByName(model.getName(), user)) {
-                if(service.findByName(model.getName(), user).getId() != id){
+                if (service.findByName(model.getName(), user).getId() != id) {
                     responseStatus = ResponseStatus.CaX1;
                     throw new ValidationException();
                 }

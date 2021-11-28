@@ -54,7 +54,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         logger.info("ScheduleService :: create(model = {})", model);
         model.setId(0);
         ScheduleEntity entity = mapper.mapToEntity(model);
-        ScheduleModel createdModel =  mapper.mapToModel(repository.save(entity));
+        ScheduleModel createdModel = mapper.mapToModel(repository.save(entity));
         logger.info("ScheduleService :: create(model = {}) = {}", model, createdModel);
         return createdModel;
     }
@@ -65,7 +65,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         logger.info("ScheduleService :: read(id = {})", id);
         Optional<ScheduleEntity> optional = repository.findById(id);
         ScheduleEntity entity = optional.orElse(null);
-        ScheduleModel readModel =  mapper.mapToModel(entity);
+        ScheduleModel readModel = mapper.mapToModel(entity);
         logger.info("ScheduleService :: read(id = {}) = {}", id, readModel);
         return readModel;
     }
@@ -76,7 +76,7 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         logger.info("ScheduleService :: update(id = {}, model = {})", id, model);
         ScheduleEntity entity = mapper.mapToEntity(model);
         entity.setId(id);
-        ScheduleModel updatedModel =  mapper.mapToModel(repository.save(entity));
+        ScheduleModel updatedModel = mapper.mapToModel(repository.save(entity));
         logger.info("ScheduleService :: update(id = {}, model = {}) = {}", id, model, updatedModel);
         return updatedModel;
     }
@@ -143,6 +143,6 @@ public class ScheduleService implements CRUDService<ScheduleModel> {
         logger.info("ScheduleService :: existsById(id = {}, user = {})", id, user);
         boolean result = repository.existsByIdAndUser(id, userMapper.mapToEntity(user));
         logger.info("ScheduleService :: existsById(id = {}, user = {}) = {}", id, user, result);
-        return  result;
+        return result;
     }
 }

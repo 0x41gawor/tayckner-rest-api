@@ -59,7 +59,7 @@ public class ActivityFacade {
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
-        logger.info("ActivityFacade :: list(userId = {}) = {}", userId,response);
+        logger.info("ActivityFacade :: list(userId = {}) = {}", userId, response);
         return response;
     }
 
