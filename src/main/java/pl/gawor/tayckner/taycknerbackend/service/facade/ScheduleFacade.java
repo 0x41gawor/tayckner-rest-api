@@ -1,5 +1,7 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.ScheduleModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
@@ -22,6 +24,9 @@ public class ScheduleFacade {
 
     private final Response.Builder builder;
 
+    private final Logger logger = LoggerFactory.getLogger(ScheduleFacade.class);
+
+
     public ScheduleFacade(ScheduleService service, UserService userService) {
         this.service = service;
         this.userService = userService;
@@ -30,29 +35,35 @@ public class ScheduleFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
+        logger.info("ScheduleFacade :: list(userId = {})", userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<ScheduleModel> models = service.list(user);
 
         if (models.isEmpty()) {
             responseStatus = ResponseStatus.XxL1;
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("ScheduleFacade :: list(userId = {}) = {}", userId, response);
+            return response;
         }
 
         models.forEach((s) -> s.getUser().setPassword(""));
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
+        logger.info("ScheduleFacade :: list(userId = {}) = {}", userId, response);
+        return response;
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(ScheduleModel model, long userId) {
+        logger.info("ScheduleFacade :: create(model = {}, userId = {})", model, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
@@ -68,10 +79,12 @@ public class ScheduleFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("ScheduleFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
+            return response;
         }
 
         model.setId(0);
@@ -79,14 +92,18 @@ public class ScheduleFacade {
         ScheduleModel createdModel = service.create(model);
         createdModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
+                .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
                 .build();
+        logger.info("ScheduleFacade :: create(model = {}, userId) = {})", model, userId);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- R E A D
     public Response read(long id, long userId) {
+        logger.info("ScheduleFacade :: read(id = {}, userId = {})", id, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
@@ -98,23 +115,28 @@ public class ScheduleFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("ScheduleFacade :: read(id = {}, userId = {}) = {}", id, userId, response);
+            return response;
         }
 
         ScheduleModel readModel = service.read(id);
         readModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
                 .build();
+        logger.info("ScheduleFacade :: read(id = {}, userId = {}) = {}", id, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, ScheduleModel model, long userId) {
+        logger.info("ScheduleFacade :: update(id = {}, model = {}, userId = {})", id, model, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
@@ -135,23 +157,28 @@ public class ScheduleFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("ScheduleFacade :: update(id = {}, model = {}, userId = {}) = {}", id, model, userId, response);
+            return response;
         }
         model.setUser(user);
         ScheduleModel updatedModel = service.update(id, model);
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(updatedModel)
                 .build();
+        logger.info("ScheduleFacade :: update(id = {}, model = {}, userId = {}) = {}", id, model, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- D E L E T E
     public Response delete(long id, long userId) {
+        logger.info("ScheduleFacade :: delete(id = {}, userId = {})", id, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         try {
@@ -161,19 +188,23 @@ public class ScheduleFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("ScheduleFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
+            return response;
         }
 
         if (!service.delete(id)) {
             responseStatus = ResponseStatus.XxX2;
         }
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .build();
+        logger.info("ScheduleFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
+        return response;
     }
 }

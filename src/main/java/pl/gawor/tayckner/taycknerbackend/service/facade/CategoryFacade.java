@@ -1,5 +1,7 @@
 package pl.gawor.tayckner.taycknerbackend.service.facade;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pl.gawor.tayckner.taycknerbackend.core.model.CategoryModel;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
@@ -23,6 +25,8 @@ public class CategoryFacade {
 
     private final Response.Builder builder;
 
+    private final Logger logger = LoggerFactory.getLogger(CategoryFacade.class);
+
     public CategoryFacade(CategoryService service, UserService userService) {
         this.service = service;
         this.userService = userService;
@@ -31,29 +35,35 @@ public class CategoryFacade {
 
     // ------------------------------------------------------------------------------------------ L I S T
     public Response list(long userId) {
+        logger.info("CategoryFacade :: list(userId = {})", userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
         List<CategoryModel> models = service.list(user);
 
         if (models.isEmpty()) {
             responseStatus = ResponseStatus.XxL1;
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("CategoryFacade :: list(userId = {}) = {}", userId, response);
+            return response;
         }
 
         models.forEach((c) -> c.getUser().setPassword(""));
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(models)
                 .build();
+        logger.info("CategoryFacade :: list(userId = {}) = {}", userId, response);
+        return response;
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
     public Response create(CategoryModel model, long userId) {
+        logger.info("CategoryFacade :: create(model = {}, userId = {})", model, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
 
         UserModel user = userService.read(userId);
@@ -69,10 +79,12 @@ public class CategoryFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("CategoryFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
+            return response;
         }
 
         model.setId(0);
@@ -80,10 +92,13 @@ public class CategoryFacade {
         CategoryModel createdModel = service.create(model);
         createdModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
+                .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(createdModel)
                 .build();
+        logger.info("CategoryFacade :: create(model = {}, userId) = {}) = {}}", model, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- R E A D
@@ -98,21 +113,27 @@ public class CategoryFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            builder
+            Response response = builder
+                    .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("CategoryFacade :: read(id = {}, userId = {}) = {}}", id, userId, response);
+            return response;
         }
 
         CategoryModel readModel = service.read(id);
         readModel.getUser().setPassword("");
-        return builder
+        Response response = builder
                 .setResponseStatus(responseStatus)
                 .setContent(readModel)
                 .build();
+        logger.info("CategoryFacade :: read(id = {}, userId = {}) = {}}", id, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- U P D A T E
     public Response update(long id, CategoryModel model, long userId) {
+        logger.info("CategoryFacade :: update(id = {}, model = {}, userId = {})", id, model, userId);
         ResponseStatus responseStatus = ResponseStatus.XxX0;
         UserModel user = userService.read(userId);
 
@@ -124,7 +145,7 @@ public class CategoryFacade {
             }
             // validate name
             if (service.existByName(model.getName(), user)) {
-                if(service.findByName(model.getName(), user).getId() != id){
+                if (service.findByName(model.getName(), user).getId() != id) {
                     responseStatus = ResponseStatus.CaX1;
                     throw new ValidationException();
                 }
@@ -135,20 +156,24 @@ public class CategoryFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("CategoryFacade :: update(id = {}, model = {}, userId = {}) = {}", id, model, userId, response);
+            return response;
         }
         model.setUser(user);
         CategoryModel updatedModel = service.update(id, model);
         updatedModel.getUser().setPassword("");
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .setContent(updatedModel)
                 .build();
+        logger.info("CategoryFacade :: update(id = {}, model = {}, userId = {}) = {}", id, model, userId, response);
+        return response;
     }
 
     // ------------------------------------------------------------------------------------------- D E L E T E
@@ -162,19 +187,23 @@ public class CategoryFacade {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
-            return builder
+            Response response = builder
                     .clear()
                     .setResponseStatus(responseStatus)
                     .build();
+            logger.info("CategoryFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
+            return response;
         }
 
         if (!service.delete(id)) {
             responseStatus = ResponseStatus.XxX2;
         }
 
-        return builder
+        Response response = builder
                 .clear()
                 .setResponseStatus(responseStatus)
                 .build();
+        logger.info("CategoryFacade :: delete(id = {}, userId = {}) = {}", id, userId, response);
+        return response;
     }
 }
