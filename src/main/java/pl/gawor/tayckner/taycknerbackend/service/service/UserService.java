@@ -1,5 +1,7 @@
 package pl.gawor.tayckner.taycknerbackend.service.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gawor.tayckner.taycknerbackend.core.model.UserModel;
@@ -20,6 +22,8 @@ public class UserService implements CRUDService<UserModel> {
     private final UserRepository repository;
     private final UserMapper mapper;
 
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     public UserService(UserRepository repository, UserMapper mapper) {
         this.repository = repository;
@@ -29,45 +33,59 @@ public class UserService implements CRUDService<UserModel> {
     // ------------------------------------------------------------------------------------------ L I S T
     @Override
     public List<UserModel> list() {
+        logger.info("UserService :: list()");
         List<UserEntity> entities = repository.findAll();
         List<UserModel> models = new ArrayList<>();
         for (UserEntity entity : entities) {
             models.add(mapper.mapToModel(entity));
         }
+        logger.info("UserService :: list() = {}", models);
         return models;
     }
 
     // -------------------------------------------------------------------------------------- C R E A T E
     @Override
     public UserModel create(UserModel model) {
+        logger.info("UserService :: create(model = {})", model);
         model.setId(0);
         UserEntity entity = mapper.mapToEntity(model);
-        return mapper.mapToModel(repository.save(entity));
+        UserModel createdModel = mapper.mapToModel(repository.save(entity));
+        logger.info("UserService :: create(model = {}) = {}", model, createdModel);
+        return createdModel;
     }
 
     // ------------------------------------------------------------------------------------------ R E A D
     @Override
     public UserModel read(long id) {
+        logger.info("UserService :: read(id = {})", id);
         Optional<UserEntity> optional = repository.findById(id);
         UserEntity entity = optional.orElse(null);
-        return mapper.mapToModel(entity);
+        UserModel readModel =  mapper.mapToModel(entity);
+        logger.info("UserService :: read(id = {}) = {}", id, readModel);
+        return readModel;
     }
 
     // -------------------------------------------------------------------------------------- U P D A T E
     @Override
     public UserModel update(long id, UserModel model) {
+        logger.info("UserService :: update(id = {}, model = {})", id, model);
         UserEntity entity = mapper.mapToEntity(model);
         entity.setId(id);
-        return mapper.mapToModel(repository.save(entity));
+        UserModel updatedModel =  mapper.mapToModel(repository.save(entity));
+        logger.info("UserService :: update(id = {}, model = {}) = {}", id, model, updatedModel);
+        return updatedModel;
     }
 
     // -------------------------------------------------------------------------------------- D E L E T E
     @Override
     public boolean delete(long id) {
+        logger.info("UserService :: delete(id = {})", id);
         if (repository.existsById(id)) {
             repository.deleteById(id);
+            logger.info("UserService :: delete(id = {}) = true", id);
             return true;
         }
+        logger.info("UserService :: delete(id = {}) = false", id);
         return false;
     }
 
@@ -78,7 +96,10 @@ public class UserService implements CRUDService<UserModel> {
      */
     // ---------------------------------------------------------------E X I S T S   B Y   U S E R N A M E
     public boolean existsByUsername(String username) {
-        return repository.existsByUsername(username);
+        logger.info("UserService :: existsByUsername(username = {})", username);
+        boolean result =  repository.existsByUsername(username);
+        logger.info("UserService :: existsByUsername(username = {}) = {}", username, result);
+        return result;
     }
 
     /**
@@ -88,7 +109,10 @@ public class UserService implements CRUDService<UserModel> {
      */
     // ---------------------------------------------------------------------E X I S T S   B Y   E M A I L
     public boolean existsByEmail(String email) {
-        return repository.existsByEmail(email);
+        logger.info("UserService :: existsByUsername(email = {})", email);
+        boolean result =  repository.existsByEmail(email);
+        logger.info("UserService :: existsByUsername(email = {}) = {}", email, result);
+        return result;
     }
 
     /**
@@ -98,6 +122,9 @@ public class UserService implements CRUDService<UserModel> {
      */
     // -------------------------------------------------------------------F I N D   B Y   U S E R N A M E
     public UserModel findByUsername(String username) {
-        return mapper.mapToModel(repository.findUserEntityByUsername(username));
+        logger.info("UserService :: findByUsername(username = {})", username);
+        UserModel foundModel =  mapper.mapToModel(repository.findUserEntityByUsername(username));
+        logger.info("UserService :: findByUsername(username = {}) = {}", username, foundModel);
+        return foundModel;
     }
 }
