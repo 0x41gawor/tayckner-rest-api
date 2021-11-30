@@ -26,7 +26,7 @@ This is the repository for the backend application that provides REST API for fr
 
 Description of the Tayckner as a product itself will be created somewhere in the future and linked here. As for now I'm developing a small part of it for the purpose of "Introduction to mobile applications" course at Warsaw University of Technology. 
 
-This small part contains modules:
+This small part contain modules:
 
 - Day tracker
 - Day planner
@@ -40,7 +40,7 @@ Project development was divided into stages:
 
 **Stage 1 - Planning**
 
-Writing down project requirements, recognizing models, creating ER diagrams, UML diagrams and planning endpoints.
+Writing down project requirements, recognizing models, creating ER and UML diagrams, and planning endpoints.
 
 **Stage 2 - REST CRUD**
 
@@ -48,14 +48,16 @@ Implementing planned application to the point where it becomes a CRUD applicatio
 
 **Stage 3 - First Release**
 
-This stage happens in parallel with the development of the mobile app. During this stage:
+This stage happens in parallel with the development of the android mobile app. During this stage:
 
 - all bugs should be detected and fixed
-- probably new endpoints will be added
+- probably new endpoints will be added 
+- probably existing endpoints will be modified
 
 In other words this stage will adjust backend app to be fully working with the android mobile app.
 
-
+**Next stages**
+- After the mobile app is done Tayckner could be increased with other planned modules.
 
 Application current **stage** is the **3rd** one.
 
@@ -69,16 +71,13 @@ Application current **stage** is the **3rd** one.
 - jBCrypt
 - MySQL database
 
-
 ## Development setup
 
 See [Development Setup](docs/development_setup.md)
 
-
 ## Contributing
 
 See [Contributing](docs/contributing.md)
-
 
 ## What have I learned?
 
@@ -92,5 +91,5 @@ Solutions such as [Swagger](https://swagger.io) can save tons of time.
 
 If You have access to the Ultimate version of Intellij switch to it from Community version as fast as You can.
 
-This is the first project where I am using it, and I'm amazed by this software. Before I was totally unaware of that, and now I regret.
+This is the first project where I am using it, and I'm amazed by this software. Earlier I was totally unaware of that, and now I regret this.
 
