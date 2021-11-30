@@ -7,18 +7,16 @@
   <br>
 </p>
 
-## Table of contents
+**Table of contents**
 
 - [Motivation](#motivation)
+- [Project status](#project-status)
 - [Technologies](#technologies)
 - [Development setup](#development-setup)
 - [Contributing](#contributing)
-- [Project status](#project-status)
 - [What have I learned](#what-have-i-learned)
 
-***
-
-### Motivation
+## Motivation
 
 This repository is a part of Tayckner software system which is divided into 5 projects.
 
@@ -36,21 +34,19 @@ This small part contains modules:
 
 About which you can read more [here](docs/planning/text_description.md).
 
-***
-
-### Project Status
+## Project Status
 
 Project development was divided into stages:
 
-#### Stage 1 - Planning
+**Stage 1 - Planning**
 
 Writing down project requirements, recognizing models, creating ER diagrams, UML diagrams and planning endpoints.
 
-#### Stage 2 - REST CRUD
+**Stage 2 - REST CRUD**
 
 Implementing planned application to the point where it becomes a CRUD application for all of the models + can register and login users.
 
-#### Stage 3 - First Release
+**Stage 3 - First Release**
 
 This stage happens in parallel with the development of the mobile app. During this stage:
 
@@ -63,9 +59,7 @@ In other words this stage will adjust backend app to be fully working with the a
 
 Application current **stage** is the **3rd** one.
 
-***
-
-### Technologies
+## Technologies
 
 - Java 17
 - Gradle
@@ -75,33 +69,28 @@ Application current **stage** is the **3rd** one.
 - jBCrypt
 - MySQL database
 
-***
 
-### Development setup
+## Development setup
 
 See [Development Setup](docs/development_setup.md)
 
-***
 
-### Contributing
+## Contributing
 
 See [Contributing](docs/contributing.md)
 
-***
 
-### What have I learned?
+## What have I learned?
 
-#### Use Swagger IO
+**Use Swagger IO**
 
 Writing down endpoints documentation manually was very time-consuming.
 
 Solutions such as [Swagger](https://swagger.io) can save tons of time.
 
-#### Use Intellij Idea Ultimate
+**Use Intellij Idea Ultimate**
 
 If You have access to the Ultimate version of Intellij switch to it from Community version as fast as You can.
 
 This is the first project where I am using it, and I'm amazed by this software. Before I was totally unaware of that, and now I regret.
-
-***
 
