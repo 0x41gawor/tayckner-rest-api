@@ -11,11 +11,12 @@
 
 - [Motivation](#motivation)
 - [Technologies](#technologies)
-
 - [Development setup](#development-setup)
 - [Contributing](#contributing)
 - [Project status](#project-status)
 - [What have I learned](#what-have-i-learned)
+
+***
 
 ### Motivation
 
@@ -34,6 +35,8 @@ This small part contains modules:
 - Habit tracker
 
 About which you can read more [here](docs/planning/text_description.md).
+
+***
 
 ### Project Status
 
@@ -60,24 +63,31 @@ In other words this stage will adjust backend app to be fully working with the a
 
 Application current **stage** is the **3rd** one.
 
+***
+
 ### Technologies
 
 - Java 17
 - Gradle
-
 - Spring Boot
   - Spring Data JPA
   - Spring MVC (Tomcat)
 - jBCrypt
 - MySQL database
 
+***
+
 ### Development setup
 
 See [Development Setup](docs/development_setup.md)
 
+***
+
 ### Contributing
 
 See [Contributing](docs/contributing.md)
+
+***
 
 ### What have I learned?
 
@@ -93,5 +103,5 @@ If You have access to the Ultimate version of Intellij switch to it from Communi
 
 This is the first project where I am using it, and I'm amazed by this software. Before I was totally unaware of that, and now I regret.
 
-
+***
 
