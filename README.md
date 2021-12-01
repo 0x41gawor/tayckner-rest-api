@@ -42,6 +42,8 @@ Project development was divided into stages:
 
 Writing down project requirements, recognizing models, creating ER and UML diagrams, and planning endpoints.
 
+Whole stage is documented in [here](docs/planning)
+
 **Stage 2 - REST CRUD**
 
 Implementing planned application to the point where it becomes a CRUD application for all of the models + can register and login users.
