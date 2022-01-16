@@ -69,10 +69,10 @@ public class ScheduleFacade {
         UserModel user = userService.read(userId);
         try {
             // validate times
-            if (model.getStartTime().isAfter(model.getEndTime())) {
-                responseStatus = ResponseStatus.XxX4;
-                throw new ValidationException();
-            }
+//            if (model.getStartTime().isAfter(model.getEndTime())) {
+//                responseStatus = ResponseStatus.XxX4;
+//                throw new ValidationException();
+//            }
             // validate duration
             if (model.getDuration() < 0) {
                 responseStatus = ResponseStatus.XxX5;
@@ -147,10 +147,10 @@ public class ScheduleFacade {
                 throw new ValidationException();
             }
             // validate times
-            if (model.getStartTime().isAfter(model.getEndTime())) {
-                responseStatus = ResponseStatus.XxX4;
-                throw new ValidationException();
-            }
+//            if (model.getStartTime().isAfter(model.getEndTime())) {
+//                responseStatus = ResponseStatus.XxX4;
+//                throw new ValidationException();
+//            }
             // validate duration
             if (model.getDuration() < 0) {
                 responseStatus = ResponseStatus.XxX5;

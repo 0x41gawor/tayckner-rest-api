@@ -50,7 +50,7 @@ public class CategoryController {
     public ResponseEntity<Map<String, Object>> create(HttpServletRequest request, @RequestBody CategoryModel model) {
         int userId = (int) request.getAttribute("userId");
         logger.info("CategoryController :: create(userId = {})", userId);
-        Response response = facade.list(userId);
+        Response response = facade.create(model, userId);
         logger.info("CategoryController :: create(userId = {}) = {}", userId, response);
         return response.getResponseEntity();
     }
