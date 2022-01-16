@@ -89,6 +89,7 @@ public class UserFacade {
 
             if (!BCrypt.checkpw(password, user.getPassword())) {
                 responseStatus = ResponseStatus.L2;
+                throw new ValidationException();
             }
         } catch (ValidationException e) {
             Response.Builder builder = new Response.Builder();
